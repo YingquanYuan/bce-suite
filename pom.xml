@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>bce.backend</groupId>
+    <artifactId>bce-backend</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+
+    <name>Broadcast Encryption System Backend</name>
+
+    <scm>
+        <developerConnection></developerConnection>
+    </scm>
+
+    <modules>
+
+        <module>bcejni</module>
+        <module>jbce</module>
+        <module>bceserver</module>
+
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <directory>target</directory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
