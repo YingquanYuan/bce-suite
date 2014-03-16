@@ -1,7 +1,10 @@
 *.settings/
 *target/
+*bin/
 *.classpath
 *.project
 *.settings
 *.jar
 *.war
+*.o
+*.so
