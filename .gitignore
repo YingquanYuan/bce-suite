@@ -11,3 +11,4 @@
 *.so
 *.dll
 *.jnilib
+tmp/

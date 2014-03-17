@@ -1,1 +1,0 @@
-gcc -I/System/Library/Frameworks/JavaVM.framework/Headers -fPIC -dynamiclib -Wl,-undefined,dynamic_lookup -o libbcejni.so *.c

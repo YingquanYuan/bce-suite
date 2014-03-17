@@ -1,20 +1,50 @@
-CC			:=	gcc
-CFLAGS		:=	-Wall -lgmp -lpbc
+UNAME  := $(shell uname)
+DARWIN := $(findstring Darwin, $(UNAME))
 
-SRC_DIR		:=	./src
+CC             = gcc
+SHARED         = -shared
+CFLAGS         = -Wall -O2 -pipe -D_REENTRANT
+EXTRA_LDFLAGS  = -lgmp -lpbc
+EXTRA_CPPFLAGS =
+LDFLAGS        = $(EXTRA_LDFLAGS)
+CPPFLAGS       = $(EXTRA_CPPFLAGS)
 
-OBJS		:=	pbc_bce.o bce_utils.o bcejni.o main.o
-TARGET_DIR	:=	./target
-TARGET_OBJ	:=	$(addprefix $(TARGET_DIR)/, libbcejni.so)
+LIBNAME        = libbcejni
+LIBEXTENSION   = so
 
-.PHONY: build
-build: mkdir $(TARGET_DIR)/$(TARGET_OBJ)
+# if on OS X
+ifeq ($(DARWIN), Darwin)
+	JAVA_INCDIR  = $(JAVA_HOME)/include
+	LIBEXTENSION = jnilib
+	CPPFLAGS    += -I$(JAVA_INCDIR)
+	LDFLAGS     += -fPIC -dynamiclib -Wl,-undefined,dynamic_lookup
+	SHARED       =
+else
+	JAVA_INCDIR  = $(JAVA_HOME)/include
+	JAVA_INCDIR_PLAF = $(dir $(wildcard $(JAVA_INCDIR)/*/jni_md.h))
+	CPPFLAGS    += -I$(JAVA_INCDIR) -I$(JAVA_INCDIR_PLAF)
+	CFLAGS      += -ansi -pthread -fPIC -DPIC
+endif
 
-$(TARGET_DIR)/$(TARGET_OBJ): $(TARGET_OBJS):
-	$(CC) $^ $(CFLAGS) -o $@
+SRC_DIR     := ./src
+SRCS        := $(shell find $(SRC_DIR) -name "*.c" -print)
+OBJS        := $(SRCS:%.c=%.o)
+TARGET_DIR := ./target
+
+CLEAN_EXTENSIONS = o $(LIBEXTENSION)
+LIBBCEJNI = $(TARGET_DIR)/$(LIBNAME).$(LIBEXTENSION)
+
+# gcc -I/System/Library/Frameworks/JavaVM.framework/Headers -fPIC -dynamiclib -Wl, -undefined, dynamic_lookup -o libbcejni.so *.c
+# gcc  -o target/libbcejni.jnilib  -lgmp -lpbc -dynamiclib -noprebind -single_module -framework JavaVM
 
 .PHONY: all
-all: clean build
+all: mkdir $(LIBBCEJNI)
+
+$(LIBBCEJNI): $(OBJS)
+	$(CC) $(SHARED) -o $@ $^ $(LDFLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 .PHONY: mkdir
 mkdir:
@@ -22,4 +52,7 @@ mkdir:
 
 .PHONY: clean
 clean:
+	for ext in $(CLEAN_EXTENSIONS); do \
+		find . -name "*.$$ext" | xargs rm -rf ; \
+	done
 	rm -rf $(TARGET_DIR)

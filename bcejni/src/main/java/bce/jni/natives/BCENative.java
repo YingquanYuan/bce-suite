@@ -7,8 +7,8 @@ public final class BCENative {
 	private static final String LIBNAME = "bcejni";
 	
 	static {
-		System.load("/Users/yingquan/code/bce-suite/libbcejni/src/libbcejni.jnilib");
-		// System.loadLibrary(LIBNAME);
+		// System.load("/Users/yingquan/code/bce-suite/libbcejni/target/libbcejni.jnilib");
+		System.loadLibrary(LIBNAME);
 	}
 	
 	/**

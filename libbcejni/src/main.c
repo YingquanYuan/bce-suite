@@ -89,7 +89,6 @@ JNIEXPORT jint JNICALL Java_bce_jni_natives_BCENative_genPrivateKeys(JNIEnv *env
     {
         col = (*env)->GetObjectArrayElement(env, user_priv_keys_out, i);
         (*env)->SetByteArrayRegion(env, col, 0, USER_PRIV_KEY_SIZE, (jbyte *) (user_keys_out + i * USER_PRIV_KEY_SIZE));
-//        (*env)->ReleaseByteArrayRegion()
     }
 
     free(user_keys_out);
@@ -227,21 +226,9 @@ JNIEXPORT jint JNICALL Java_bce_jni_natives_BCENative_changeEncryptionProduct(JN
     (*env)->GetByteArrayRegion(env, sys_params_path, 0, length, (jbyte *) params_path);
     params_path[length] = '\0';
 
-//    length = (*env)->GetArrayLength(env, adds);
-//    printf("length = %d\n", length);
-//    if (length != n_adds)
-//        return -2;
-    //adds_array = (int *) malloc(n_adds);
-    //adds_array = (*env)->GetIntArrayRegion(env, adds, 0, n_adds, (jint *) adds_array);
     if (adds != NULL)
         adds_array = (*env)->GetIntArrayElements(env, adds, 0);
-    //for ()
 
-//    length = (*env)->GetArrayLength(env, rems);
-//    if (length != n_rems)
-//        return -4;
-//    rems_array = (int *) malloc(n_rems);
-//    (*env)->GetIntArrayRegion(env, rems, 0, n_rems, (jint *) rems_array);
     if (rems != NULL)
         rems_array = (*env)->GetIntArrayElements(env, rems, 0);
 
@@ -255,8 +242,6 @@ JNIEXPORT jint JNICALL Java_bce_jni_natives_BCENative_changeEncryptionProduct(JN
     if (retval != 0)
     {
         free(params_path);
-//        free(adds_array);
-//        free(rems_array);
         if (adds != NULL)
             (*env)->ReleaseIntArrayElements(env, adds, adds_array, 0);
         if (rems != NULL)
@@ -269,8 +254,6 @@ JNIEXPORT jint JNICALL Java_bce_jni_natives_BCENative_changeEncryptionProduct(JN
         (*env)->ReleaseIntArrayElements(env, adds, adds_array, 0);
     if (rems != NULL)
         (*env)->ReleaseIntArrayElements(env, rems, rems_array, 0);
-//    free(adds_array);
-//    free(rems_array);
 
     return 0;
 }
@@ -289,6 +272,8 @@ JNIEXPORT jint JNICALL Java_bce_jni_natives_BCENative_changeDecryptionProduct
     if (adds == NULL && rems == NULL)
         return -2;
 
+    /** TODO used to solve JVM complaint, but I don't know why */
+    printf("1\n");
     len = (*env)->GetArrayLength(env, global_params_path);
     global_path = (byte *) malloc(len + 1);
     (*env)->GetByteArrayRegion(env, global_params_path, 0, len, (jbyte *) global_path);
