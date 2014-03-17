@@ -3,6 +3,8 @@ package jbce.jni.test;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Test;
+
 import bce.java.core.BCEEngine;
 import bce.java.entities.BCECiphertext;
 import bce.java.entities.BCEClientSystem;
@@ -17,7 +19,7 @@ import bce.jni.utils.BCEUtils;
 
 public class TestJbce {
 
-	//@Test
+//	@Test
 	public void testGeneric() {
 		byte[] privateKey = new byte[BCEConstraints.PRIVATE_KEY_LENGTH];
 		byte[][] userKeys = new byte[BCEConstraints.PRIVATE_KEY_GEN_BATCH_SIZE][BCEConstraints.USER_PRIVATE_KEY_SIZE];

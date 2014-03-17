@@ -3,6 +3,8 @@ package bce.server.junit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+
 import bce.java.core.BCEEngine;
 import bce.java.entities.BCECiphertext;
 import bce.java.entities.BCEClientSystem;

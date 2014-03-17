@@ -9,7 +9,7 @@ import bce.jni.utils.BCEUtils;
 
 public class TestBCENative {
 
-//	@Test
+	@Test
 	public void test() {
 		byte[] privateKey = new byte[BCEConstraints.PRIVATE_KEY_LENGTH];
 		byte[][] userKeys = new byte[BCEConstraints.PRIVATE_KEY_GEN_BATCH_SIZE][BCEConstraints.USER_PRIVATE_KEY_SIZE];
