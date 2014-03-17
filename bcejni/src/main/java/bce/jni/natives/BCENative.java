@@ -4,7 +4,7 @@ public final class BCENative {
 	
 	private BCENative() {}
 	
-	private static final String LIBNAME = "libbcejni";
+	private static final String LIBNAME = "bcejni";
 	
 	static {
 		System.load("/Users/yingquan/code/bce-suite/libbcejni/src/libbcejni.jnilib");
