@@ -25,6 +25,7 @@ else
 	JAVA_INCDIR_PLAF = $(dir $(wildcard $(JAVA_INCDIR)/*/jni_md.h))
 	CPPFLAGS    += -I$(JAVA_INCDIR) -I$(JAVA_INCDIR_PLAF)
 	CFLAGS      += -pthread -fPIC -DPIC
+	LDFLAGS     += -Wl,-rpath=/usr/local/lib
 endif
 
 SRC_DIR     := ./src
@@ -34,9 +35,6 @@ TARGET_DIR := ./target
 
 CLEAN_EXTENSIONS = o $(LIBEXTENSION)
 LIBBCEJNI = $(TARGET_DIR)/$(LIBNAME).$(LIBEXTENSION)
-
-# gcc -I/System/Library/Frameworks/JavaVM.framework/Headers -fPIC -dynamiclib -Wl, -undefined, dynamic_lookup -o libbcejni.so *.c
-# gcc  -o target/libbcejni.jnilib  -lgmp -lpbc -dynamiclib -noprebind -single_module -framework JavaVM
 
 .PHONY: all
 all: mkdir $(LIBBCEJNI)

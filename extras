@@ -1,0 +1,2 @@
+# generally we include the libbcejni.so and libpbc.so into LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=~/code/bce-suite/libbcejni/target:/usr/local/lib:$LD_LIBRARY_PATH
