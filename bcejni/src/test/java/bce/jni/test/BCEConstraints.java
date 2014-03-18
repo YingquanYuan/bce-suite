@@ -1,34 +1,34 @@
 package bce.jni.test;
 
 public interface BCEConstraints {
-	
+
 	/**
 	 * 椭圆函数参数文件名, 绝对路径
 	 */
-	String CURVE_FILE_NAME = "/Users/yingquan/code/bce-suite/libbcejni/conf/d201.param";
-	
+	String CURVE_FILE_NAME = "/home/yingquan/code/bce-suite/libbcejni/conf/d201.param";
+
 	/**
 	 * 广播加密系统参数文件名, 绝对路径
 	 */
-	String SYS_PARAMS_FILE_NAME = "/Users/yingquan/code/bce-suite/libbcejni/conf/system.param";
-	
+	String SYS_PARAMS_FILE_NAME = "/home/yingquan/code/bce-suite/libbcejni/conf/system.param";
+
 	/**
 	 * 客户端使用的广播加密系统参数文件名, 绝对路径
 	 */
-	String GLOBAL_PARAMS_FILE_NAME = "/Users/yingquan/code/bce-suite/libbcejni/conf/globalsystem.param";
-	
+	String GLOBAL_PARAMS_FILE_NAME = "/home/yingquan/code/bce-suite/libbcejni/conf/globalsystem.param";
+
 	/**
 	 * 广播加密系统中用户总数
 	 */
 	int USER_NUMBER = 128;
-	
+
 	/**
 	 * 单次生成私钥操作的用户批次
 	 */
 	int PRIVATE_KEY_GEN_BATCH_SIZE = 64;
-	
+
 	int CHANGE_DECR_PROD_BATCH_SIZE = 64;
-	
+
 	/**
 	 * 用户实际获取的私钥结构长度
 	 *<pre>
@@ -42,32 +42,32 @@ public interface BCEConstraints {
 	 *</pre>
 	 */
 	int USER_PRIVATE_KEY_SIZE = 316;
-	
+
 	int PRK_INDEX_LENGTH = 4;
-	
+
 	int PRK_G_I_GAMMA_LENGTH = 52;
-	
+
 	int PRK_G_I_LENGTH = 52;
-	
+
 	int PRK_H_I_LENGTH = 156;
-	
+
 	int PRK_DECR_PROD_LENGTH = 52;
-	
+
 	/**
 	 * 实际私钥元素长度, Zr组, 23bytes
 	 */
 	int PRIVATE_KEY_LENGTH = 23;
-	
+
 	/**
 	 * 密文头第一段C0长度, G2组, 156bytes
 	 */
 	int CT_C0_LENGTH = 156;
-	
+
 	/**
 	 * 密文头第二段C1长度, G1组, 52bytes
 	 */
 	int CT_C1_LENGTH = 52;
-	
+
 	/**
 	 * 广播加密系统生成的对称密钥（消息加密密钥）长度, GT组, 156bytes
 	 */

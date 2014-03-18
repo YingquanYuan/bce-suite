@@ -20,10 +20,11 @@ ifeq ($(DARWIN), Darwin)
 	LDFLAGS     += -fPIC -dynamiclib -Wl,-undefined,dynamic_lookup
 	SHARED       =
 else
+	# if on Linux
 	JAVA_INCDIR  = $(JAVA_HOME)/include
 	JAVA_INCDIR_PLAF = $(dir $(wildcard $(JAVA_INCDIR)/*/jni_md.h))
 	CPPFLAGS    += -I$(JAVA_INCDIR) -I$(JAVA_INCDIR_PLAF)
-	CFLAGS      += -ansi -pthread -fPIC -DPIC
+	CFLAGS      += -pthread -fPIC -DPIC
 endif
 
 SRC_DIR     := ./src
