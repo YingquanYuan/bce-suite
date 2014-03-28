@@ -19,44 +19,44 @@ import bce.server.entities.PersistentUser;
  * 用于检查用户登录状态的过滤器
  */
 @WebFilter(filterName = "LoginCheckFilter", urlPatterns = { "/MainPageServlet.sl" }, dispatcherTypes = {
-		DispatcherType.FORWARD, DispatcherType.REQUEST, DispatcherType.INCLUDE,
-		DispatcherType.ERROR, DispatcherType.ASYNC })
+        DispatcherType.FORWARD, DispatcherType.REQUEST, DispatcherType.INCLUDE,
+        DispatcherType.ERROR, DispatcherType.ASYNC })
 public class LoginCheckFilter implements Filter {
 
-	/**
-	 * Default constructor.
-	 */
-	public LoginCheckFilter() {
-	}
+    /**
+     * Default constructor.
+     */
+    public LoginCheckFilter() {
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see javax.servlet.Filter#destroy()
-	 */
-	public void destroy() {
-	}
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Filter#destroy()
+     */
+    public void destroy() {
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-	 */
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		PersistentUser user = (PersistentUser) httpServletRequest.getSession().getAttribute(PersistentUser.ATTRIBUTE_KEY);
-		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-		if (user == null) {
-			httpServletResponse.sendRedirect("bce_user_login.jsp");
-			return;
-		}
-		chain.doFilter(request, response);
-	}
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        PersistentUser user = (PersistentUser) httpServletRequest.getSession().getAttribute(PersistentUser.ATTRIBUTE_KEY);
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+        if (user == null) {
+            httpServletResponse.sendRedirect("bce_user_login.jsp");
+            return;
+        }
+        chain.doFilter(request, response);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-	}
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
+    public void init(FilterConfig fConfig) throws ServletException {
+    }
 
 }
