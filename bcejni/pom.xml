@@ -16,12 +16,6 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <properties>
-    <libbcejni.path>${project.build.directory}/nativelib</libbcejni.path>
-    <libbcejni.name>libbcejni.so</libbcejni.name>
-    <libpbc.path>/usr/local/lib</libpbc.path>
-  </properties>
-
   <dependencies>
     <!-- Tests Libraries -->
     <dependency>
@@ -49,38 +43,26 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-            <argLine>-Djava.library.path=${libpbc.path}:${libbcejni.path}</argLine>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.dstovall</groupId>
-        <artifactId>onejar-maven-plugin</artifactId>
-        <version>1.4.4</version>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
         <executions>
           <execution>
-            <configuration>
-              <!-- Optional -->
-              <onejarVersion>0.97</onejarVersion>
-              <!-- Optional, use only if you need to include native libraries -->
-              <binlibs>
-                <fileSet>
-                    <directory>${libbcejni.path}</directory>
-                  <includes>
-                      <include>${libbcejni.name}</include>
-                  </includes>
-                </fileSet>
-              </binlibs>
-              <!-- Optional, default is false -->
-              <attachToBuild>true</attachToBuild>
-              <!-- Optional, default is "onejar" -->
-              <classifier>onejar</classifier>
-            </configuration>
+            <id>copy-native-lib</id>
+            <phase>package</phase>
             <goals>
-              <goal>one-jar</goal>
+              <goal>copy-resources</goal>
             </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>../libbcejni/target</directory>
+                  <includes>
+                    <include>*bcejni.*</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -104,6 +86,5 @@
       </plugin>
 
     </plugins>
-
   </build>
 </project>
