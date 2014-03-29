@@ -17,8 +17,9 @@
   </pluginRepositories>
 
   <properties>
-    <lib.directory>${project.build.directory}/jni</lib.directory>
-    <lib.name>libbcejni.so</lib.name>
+    <libbcejni.path>${project.build.directory}/nativelib</libbcejni.path>
+    <libbcejni.name>libbcejni.so</libbcejni.name>
+    <libpbc.path>/usr/local/lib</libpbc.path>
   </properties>
 
   <dependencies>
@@ -50,7 +51,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <argLine>-Djava.library.path=${lib.directory}</argLine>
+            <argLine>-Djava.library.path=${libpbc.path}:${libbcejni.path}</argLine>
         </configuration>
       </plugin>
 
@@ -66,9 +67,9 @@
               <!-- Optional, use only if you need to include native libraries -->
               <binlibs>
                 <fileSet>
-                  <directory>${project.build.directory}/nativelib</directory>
+                    <directory>${libbcejni.path}</directory>
                   <includes>
-                    <include>../libbcejni/target/libbcejni.so</include>
+                      <include>${libbcejni.name}</include>
                   </includes>
                 </fileSet>
               </binlibs>
