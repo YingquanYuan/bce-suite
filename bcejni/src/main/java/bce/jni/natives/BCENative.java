@@ -1,5 +1,11 @@
 package bce.jni.natives;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+
 public final class BCENative {
 
     private BCENative() {}
@@ -7,8 +13,35 @@ public final class BCENative {
     private static final String LIBNAME = "bcejni";
 
     static {
-        // System.load("/Users/yingquan/code/bce-suite/libbcejni/target/libbcejni.jnilib");
-        System.loadLibrary(LIBNAME);
+
+        InputStream in = null;
+        FileOutputStream out = null;
+        try {
+            in = BCENative.class.getResourceAsStream("/libbcejni.jnilib");
+            out = new FileOutputStream(new File("/tmp/libbcejni.jnilib"));
+            byte[] buf = new byte[128];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+                out.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ei) {}
+            }
+
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException eo) {}
+            }
+        }
+
+        System.load("/tmp/libbcejni.jnilib");
     }
 
     /**
