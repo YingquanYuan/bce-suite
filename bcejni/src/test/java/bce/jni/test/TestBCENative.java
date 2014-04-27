@@ -2,10 +2,10 @@ package bce.jni.test;
 
 import java.util.Arrays;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import bce.jni.bce.BCELibrary;
-import bce.jni.utils.BCEUtils;
 
 public class TestBCENative {
 
@@ -27,21 +27,18 @@ public class TestBCENative {
             userKeys1[i] = new byte[BCEConstraints.USER_PRIVATE_KEY_SIZE];
         }
         int retval = BCELibrary.setup(BCEConstraints.CURVE_FILE_NAME.getBytes(), BCEConstraints.USER_NUMBER, BCEConstraints.SYS_PARAMS_FILE_NAME.getBytes(), BCEConstraints.GLOBAL_PARAMS_FILE_NAME.getBytes(), privateKey);
-        System.out.println("setup returns: " + retval);
-        BCEUtils.printHex(privateKey);
+        Assert.assertEquals(0, retval);
 
         retval = BCELibrary.genPrivateKeys(BCEConstraints.SYS_PARAMS_FILE_NAME.getBytes(), privateKey, BCEConstraints.USER_NUMBER, 1 + 64 * 0, BCEConstraints.PRIVATE_KEY_GEN_BATCH_SIZE, userKeys);
         BCELibrary.genPrivateKeys(BCEConstraints.SYS_PARAMS_FILE_NAME.getBytes(), privateKey, BCEConstraints.USER_NUMBER, 1 + 64 * 1, BCEConstraints.PRIVATE_KEY_GEN_BATCH_SIZE, userKeys1);
-        System.out.println("genPrivateKeys returns: " + retval);
-        byte[] src = new byte[4];
-        System.arraycopy(userKeys1[63], 0, src, 0, 4);
-        System.out.println(BCEUtils.bytesToInt(src));
+        Assert.assertEquals(0, retval);
 
         retval = BCELibrary.encrypt(BCEConstraints.SYS_PARAMS_FILE_NAME.getBytes(), CT_C0, CT_C1, symmetricKey);
-        System.out.println("encrypt returns: " + retval);
+        Assert.assertEquals(0, retval);
 
-        retval = BCELibrary.decrypt(BCEConstraints.GLOBAL_PARAMS_FILE_NAME.getBytes(), userKeys[16], CT_C0, CT_C1, symmetricKey1);
-        System.out.println("decrypt returns: " + retval);
+        retval = BCELibrary.decrypt(BCEConstraints.GLOBAL_PARAMS_FILE_NAME.getBytes(), userKeys[11], CT_C0, CT_C1, symmetricKey1);
+        Assert.assertEquals(0, retval);
+        Assert.assertArrayEquals(symmetricKey, symmetricKey1);
 
         int[] adds = { 5, 6, 7, 10, 11, 12, 13, 14, 15, 16 };
         int nAdds = 10;
@@ -68,7 +65,7 @@ public class TestBCENative {
         retval = BCELibrary.encrypt(BCEConstraints.SYS_PARAMS_FILE_NAME.getBytes(), CT_C0, CT_C1, symmetricKey);
         System.out.println("encrypt1 returns: " + retval);
 
-        retval = BCELibrary.decrypt(BCEConstraints.GLOBAL_PARAMS_FILE_NAME.getBytes(), userKeys[16], CT_C0, CT_C1, symmetricKey1);
+        retval = BCELibrary.decrypt(BCEConstraints.GLOBAL_PARAMS_FILE_NAME.getBytes(), userKeys[11], CT_C0, CT_C1, symmetricKey1);
         System.out.println("decrypt1 returns: " + retval);
     }
 
