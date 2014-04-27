@@ -6,5 +6,9 @@
 *.settings
 *.jar
 *.war
+*system.param
 *.o
 *.so
+*.dll
+*.jnilib
+tmp/

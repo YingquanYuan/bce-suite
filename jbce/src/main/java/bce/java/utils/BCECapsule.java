@@ -7,47 +7,47 @@ import java.io.Serializable;
  * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
  */
 public interface BCECapsule extends Serializable, BCEConstraints {
-	
-	/**
-	 * 设置加密数据
-	 * @param data 要加密的数据
-	 */
-	void protect(byte[] data);
 
-	/**
-	 * 把一个实现接口的类加密存储
-	 * @param object 要存储的类
-	 */
-	void protect(Serializable object);
+    /**
+     * 设置加密数据
+     * @param data 要加密的数据
+     */
+    void protect(byte[] data);
 
-	/**
-	 * @return 原始数据
-	 */
-	byte[] getData();
+    /**
+     * 把一个实现接口的类加密存储
+     * @param object 要存储的类
+     */
+    void protect(Serializable object);
 
-	/**
-	 * @return 原始类
-	 */
-	Object getDataAsObject() throws ClassNotFoundException;
+    /**
+     * @return 原始数据
+     */
+    byte[] getData();
 
-	/**
-	 * 设置加密密钥
-	 * @param key 密钥
-	 */
-	void setKey(byte[] key);
+    /**
+     * @return 原始类
+     */
+    Object getDataAsObject() throws ClassNotFoundException;
 
-	/**
-	 * @return 哈希算法名称
-	 */
-	String getHashAlgorithm();
+    /**
+     * 设置加密密钥
+     * @param key 密钥
+     */
+    void setKey(byte[] key);
 
-	/**
-	 * @return 加密算法名称
-	 */
-	String getCrypto();
-	
-	/**
-	 * 销毁当前对象内的隐私数据
-	 */
-	void abort();
+    /**
+     * @return 哈希算法名称
+     */
+    String getHashAlgorithm();
+
+    /**
+     * @return 加密算法名称
+     */
+    String getCrypto();
+
+    /**
+     * 销毁当前对象内的隐私数据
+     */
+    void abort();
 }

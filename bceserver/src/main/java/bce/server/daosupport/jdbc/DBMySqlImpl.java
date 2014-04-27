@@ -8,13 +8,13 @@ import com.mysql.jdbc.Driver;
 
 /**
  * DB类的MySQL实现
- * 
+ *
  * @author Yingquan Yuan
  */
 public class DBMySqlImpl extends DB {
-	
-	public DBMySqlImpl() {
-	}
+
+    public DBMySqlImpl() {
+    }
 
 //	/**
 //	 * 静态的DBMySqlImpl实例
@@ -76,13 +76,13 @@ public class DBMySqlImpl extends DB {
 //		return db;
 //	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see bce.server.daosupport.jdbc.DB#getConnection()
-	 */
-	@Override
-	public Connection getConnection() throws SQLException {
-		DriverManager.registerDriver(new Driver());
-		return DriverManager.getConnection("jdbc:mysql://" + super.dbIp + ":" + super.dbPort + "/" + super.dbName + "?useUnicode=true&characterEncoding=UTF-8", super.dbUsername, super.dbUserPwd);
-	}
+    /*
+     * (non-Javadoc)
+     * @see bce.server.daosupport.jdbc.DB#getConnection()
+     */
+    @Override
+    public Connection getConnection() throws SQLException {
+        DriverManager.registerDriver(new Driver());
+        return DriverManager.getConnection("jdbc:mysql://" + super.dbIp + ":" + super.dbPort + "/" + super.dbName + "?useUnicode=true&characterEncoding=UTF-8", super.dbUsername, super.dbUserPwd);
+    }
 }
