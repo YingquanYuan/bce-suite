@@ -273,7 +273,7 @@ JNIEXPORT jint JNICALL Java_bce_jni_natives_BCENative_changeDecryptionProduct
         return -2;
 
     /** TODO used to solve JVM complaint, but I don't know why */
-    printf("1\n");
+    // printf("1\n");
     len = (*env)->GetArrayLength(env, global_params_path);
     global_path = (byte *) malloc(len + 1);
     (*env)->GetByteArrayRegion(env, global_params_path, 0, len, (jbyte *) global_path);
