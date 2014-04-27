@@ -10,15 +10,22 @@ public final class BCENative {
 
     private BCENative() {}
 
-    private static final String LIBNAME = "bcejni";
+    private static final String LIBNAME = "libbcejni";
+    private static final String LIBPATH = "/tmp";
 
     static {
+        loadLibrary();
+    }
+
+    public static void loadLibrary() {
+        final String libFullName = String.format("%s.%s", LIBNAME, getLibSuffix());
+        final String libPath = String.format("%s/%s", getLibDirName(), libFullName);
 
         InputStream in = null;
         FileOutputStream out = null;
         try {
-            in = BCENative.class.getResourceAsStream("/libbcejni.jnilib");
-            out = new FileOutputStream(new File("/tmp/libbcejni.jnilib"));
+            in = BCENative.class.getResourceAsStream("/" + libFullName);
+            out = new FileOutputStream(new File(libPath));
             byte[] buf = new byte[128];
             int len;
             while ((len = in.read(buf)) > 0) {
@@ -41,7 +48,24 @@ public final class BCENative {
             }
         }
 
-        System.load("/tmp/libbcejni.jnilib");
+        System.load(libPath);
+    }
+
+    private static String getLibDirName() {
+        String libDirName = String.format("%s/libbcejni-%d", LIBPATH, System.currentTimeMillis());
+        File libDir = new File(libDirName);
+        libDir.mkdir();
+        return libDir.getAbsolutePath();
+    }
+
+    private static String getLibSuffix() {
+        final String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.contains("mac"))
+            return "jnilib";
+        else if (osName.contains("linux"))
+            return "so";
+        else
+            throw new RuntimeException("Unsupported OS type");
     }
 
     /**

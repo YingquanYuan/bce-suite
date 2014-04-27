@@ -19,7 +19,7 @@ import bce.jni.utils.BCEUtils;
 
 public class TestJbce {
 
-    @Test
+//    @Test
     public void testGeneric() {
         byte[] privateKey = new byte[BCEConstraints.PRIVATE_KEY_LENGTH];
         byte[][] userKeys = new byte[BCEConstraints.PRIVATE_KEY_GEN_BATCH_SIZE][BCEConstraints.USER_PRIVATE_KEY_SIZE];
@@ -82,7 +82,7 @@ public class TestJbce {
         System.out.println("decrypt1 returns: " + retval);
     }
 
-//	@Test
+    @Test
     public void testOOP() {
 
 /////////////////////////////////////////init settings///////////////////////////////////////////////////////////////

@@ -15,17 +15,17 @@ public interface BCEConstraints {
     /**
      * 椭圆函数参数文件名, 绝对路径
      */
-    String CURVE_FILE_NAME = "/home/yingquan/code/bce-suite/libbcejni/conf/d201.param";
+    String CURVE_FILE_NAME = "/tmp/d201.param";
 
     /**
      * 广播加密系统参数文件名, 绝对路径
      */
-    String SYS_PARAMS_FILE_NAME = "/home/yingquan/code/bce-suite/libbcejni/conf/system.param";
+    String SYS_PARAMS_FILE_NAME = "/tmp/system.param";
 
     /**
      * 客户端使用的广播加密系统参数文件名, 绝对路径
      */
-    String GLOBAL_PARAMS_FILE_NAME = "/home/yingquan/code/bce-suite/libbcejni/conf/globalsystem.param";
+    String GLOBAL_PARAMS_FILE_NAME = "/tmp/globalsystem.param";
 
     /**
      * 广播加密系统中用户总数
