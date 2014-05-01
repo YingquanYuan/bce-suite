@@ -375,7 +375,7 @@ void LoadParams(char *systemFileName,
         return;
     }
 
-    int leng;
+    int leng = 0;
     fread(&leng, 4, 1, sysp);
     p->pairFileName = (char *) pbc_malloc(leng);
     fread(p->pairFileName, 1, leng, sysp);
@@ -450,7 +450,7 @@ void LoadParams(char *systemFileName,
 void LoadGlobalParams(char *systemFileName, global_broadcast_params_t *gbp)
 {
     global_broadcast_params_t p;
-    size_t count;
+    size_t count = 0;
     char *param_string = NULL;
 
     if(!gbp)
@@ -475,7 +475,7 @@ void LoadGlobalParams(char *systemFileName, global_broadcast_params_t *gbp)
     }
 
     fread(&count, 4, 1, sysp);
-    param_string = (char *) malloc(count + 128);
+    param_string = (char *) pbc_malloc(count);
     fread(param_string, 1, count, sysp);
 
     if (pairing_init_set_buf(p->pairing, param_string, count))

@@ -11,7 +11,8 @@ public final class BCENative {
     private BCENative() {}
 
     private static final String LIBNAME = "libbcejni";
-    private static final String LIBPATH = "/tmp";
+    private static final String CONFNAME = "d201.param";
+    private static final String PATH = "/tmp";
 
     static {
         loadLibrary();
@@ -52,7 +53,7 @@ public final class BCENative {
     }
 
     private static String getLibDirName() {
-        String libDirName = String.format("%s/libbcejni-%d", LIBPATH, System.currentTimeMillis());
+        String libDirName = String.format("%s/libbcejni-%d", PATH, System.currentTimeMillis());
         File libDir = new File(libDirName);
         libDir.mkdir();
         return libDir.getAbsolutePath();

@@ -82,7 +82,7 @@ public class TestJbce {
         System.out.println("decrypt1 returns: " + retval);
     }
 
-    // @Test
+    @Test
     public void testOOP() {
 
 /////////////////////////////////////////init settings///////////////////////////////////////////////////////////////
@@ -106,7 +106,6 @@ public class TestJbce {
         system.setChangeDecrProdBatchSize(BCEConstraints.CHANGE_DECR_PROD_BATCH_SIZE);
         BCETransientKey transientKey = BCEEngine.setup(system);
 
-        // System.out.println(transientKey);
 /////////////////////////////////////////init settings///////////////////////////////////////////////////////////////
 
 
@@ -133,14 +132,14 @@ public class TestJbce {
 
         for (int i = 0; i < system.getKeyFetchSize(); i++) {
             BCESymmetricKey symmetricKeyDec = BCEEngine.decrypt(clientSystem, list1.get(i), ciphertext);
-            System.out.print("[" + (i + 1) + "] ");
-            // System.out.println("[" + (i + 1) + "]" + ": " + symmetricKeyDec);
+            // System.out.print("[" + (i + 1) + "] ");
+            System.out.println("[" + (i + 1) + "]" + ": " + symmetricKeyDec);
         }
         System.out.println();
         for (int i = 0; i < system.getKeyFetchSize(); i++) {
             BCESymmetricKey symmetricKeyDec = BCEEngine.decrypt(clientSystem, list2.get(i), ciphertext);
-            System.out.print("[" + (i + 1) + "] ");
-            // System.out.println("[" + (64 + i + 1) + "]" + ": " + symmetricKeyDec);
+            // System.out.print("[" + (i + 1) + "] ");
+            System.out.println("[" + (64 + i + 1) + "]" + ": " + symmetricKeyDec);
         }
         System.out.println();
 /////////////////////////////////////////BCE decryption//////////////////////////////////////////////////////////////
@@ -177,14 +176,12 @@ public class TestJbce {
 
         for (int i = 0; i < system.getKeyFetchSize(); i++) {
             BCESymmetricKey symmetricKeyDecAfterChange = BCEEngine.decrypt(newClientSystem, list1.get(i), ciphertextAfterChange);
-            System.out.print("[" + (i + 1) + "] ");
-            // System.out.println("[" + (i + 1) + "]" + ": " + symmetricKeyDecAfterChange);
+            System.out.println("[" + (i + 1) + "]" + ": " + symmetricKeyDecAfterChange);
         }
         System.out.println();
         for (int i = 0; i < system.getKeyFetchSize(); i++) {
             BCESymmetricKey symmetricKeyDecAfterChange = BCEEngine.decrypt(newClientSystem, list2.get(i), ciphertextAfterChange);
-            System.out.print("[" + (i + 1) + "] ");
-            // System.out.println("[" + (64 + i + 1) + "]" + ": " + symmetricKeyDecAfterChange);
+            System.out.println("[" + (64 + i + 1) + "]" + ": " + symmetricKeyDecAfterChange);
         }
         System.out.println();
 //		System.out.println(symmetricKeyAfterChange);

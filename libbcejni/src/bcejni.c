@@ -298,9 +298,7 @@ int BCEChangeDecryptionProduct(byte *global_params_path, int start_index, int le
     if (decr_prod_out == NULL)
         return 9;
 
-    printf("fuck\n");
     LoadGlobalParams((char *) global_params_path, &gbs);
-    printf("fvck\n");
 
     if (n_adds > gbs->num_users)
         return 5;

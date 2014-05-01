@@ -11,4 +11,5 @@
 *.so
 *.dll
 *.jnilib
+.cproject
 tmp/
