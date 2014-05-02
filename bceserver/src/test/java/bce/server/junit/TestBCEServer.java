@@ -18,7 +18,7 @@ import bce.server.entities.PersistentPrivateKey;
 import bce.server.util.BCEObjectConverter;
 import bce.server.util.SpringUtil;
 
-public class TestBCEServer {
+public class TestBCEServer implements BCETestConstants {
 
 //	@Test
     public void testJBCE() {
@@ -30,18 +30,18 @@ public class TestBCEServer {
         int nRems = 13;
 
         BCESystem system = new BCESystem();
-        system.setCurveParamsURI(BCETestConstants.CURVE_FILE_NAME);
-        system.setServerSysParamsURI(BCETestConstants.SYS_PARAMS_FILE_NAME);
-        system.setGlobalSysParamsURI(BCETestConstants.GLOBAL_PARAMS_FILE_NAME);
-        system.setUserNumber(BCETestConstants.USER_NUMBER);
+        system.setCurveParamsURI(CURVE_FILE_NAME);
+        system.setServerSysParamsURI(SYS_PARAMS_FILE_NAME);
+        system.setGlobalSysParamsURI(GLOBAL_PARAMS_FILE_NAME);
+        system.setUserNumber(USER_NUMBER);
         system.setKeyFetchStartIndex(1);
-        system.setKeyFetchSize(BCETestConstants.PRIVATE_KEY_GEN_BATCH_SIZE);
+        system.setKeyFetchSize(PRIVATE_KEY_GEN_BATCH_SIZE);
         system.setAdds(adds);
         system.setnAdds(nAdds);
         system.setRems(rems);
         system.setnRems(nRems);
         system.setChangeDecrProdStartIndex(1);
-        system.setChangeDecrProdBatchSize(BCETestConstants.CHANGE_DECR_PROD_BATCH_SIZE);
+        system.setChangeDecrProdBatchSize(CHANGE_DECR_PROD_BATCH_SIZE);
         BCETransientKey transientKey = BCEEngine.setup(system);
 
         System.out.println(transientKey);
@@ -68,7 +68,7 @@ public class TestBCEServer {
 
 ///////////////////////////////////////BCE decryption//////////////////////////////////////////////////////////////
         BCEClientSystem clientSystem = new BCEClientSystem();
-        clientSystem.setGlobalSysParamsURI(BCETestConstants.GLOBAL_PARAMS_FILE_NAME);
+        clientSystem.setGlobalSysParamsURI(GLOBAL_PARAMS_FILE_NAME);
 
         for (int i = 0; i < system.getKeyFetchSize(); i++) {
             BCESymmetricKey symmetricKeyDec = BCEEngine.decrypt(clientSystem, list1.get(i), ciphertext);
@@ -108,7 +108,7 @@ public class TestBCEServer {
 
 ///////////////////////////////////////BCE decryption//////////////////////////////////////////////////////////////
         BCEClientSystem newClientSystem = new BCEClientSystem();
-        newClientSystem.setGlobalSysParamsURI(BCETestConstants.GLOBAL_PARAMS_FILE_NAME);
+        newClientSystem.setGlobalSysParamsURI(GLOBAL_PARAMS_FILE_NAME);
 
         for (int i = 0; i < system.getKeyFetchSize(); i++) {
             BCESymmetricKey symmetricKeyDecAfterChange = BCEEngine.decrypt(newClientSystem, list1.get(i), ciphertextAfterChange);
@@ -131,18 +131,18 @@ public class TestBCEServer {
         int nRems = 13;
 
         BCESystem system = new BCESystem();
-        system.setCurveParamsURI(BCETestConstants.CURVE_FILE_NAME);
-        system.setServerSysParamsURI(BCETestConstants.SYS_PARAMS_FILE_NAME);
-        system.setGlobalSysParamsURI(BCETestConstants.GLOBAL_PARAMS_FILE_NAME);
-        system.setUserNumber(BCETestConstants.USER_NUMBER);
+        system.setCurveParamsURI(CURVE_FILE_NAME);
+        system.setServerSysParamsURI(SYS_PARAMS_FILE_NAME);
+        system.setGlobalSysParamsURI(GLOBAL_PARAMS_FILE_NAME);
+        system.setUserNumber(USER_NUMBER);
         system.setKeyFetchStartIndex(1);
-        system.setKeyFetchSize(BCETestConstants.PRIVATE_KEY_GEN_BATCH_SIZE);
+        system.setKeyFetchSize(PRIVATE_KEY_GEN_BATCH_SIZE);
         system.setAdds(adds);
         system.setnAdds(nAdds);
         system.setRems(rems);
         system.setnRems(nRems);
         system.setChangeDecrProdStartIndex(1);
-        system.setChangeDecrProdBatchSize(BCETestConstants.CHANGE_DECR_PROD_BATCH_SIZE);
+        system.setChangeDecrProdBatchSize(CHANGE_DECR_PROD_BATCH_SIZE);
         BCETransientKey transientKey = BCEEngine.setup(system);
 
         System.out.println(transientKey);
