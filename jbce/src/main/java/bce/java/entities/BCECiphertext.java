@@ -6,9 +6,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import bce.java.core.BCEIOSpec;
 import bce.java.exceptions.IllegalCTAttrSizeException;
 import bce.java.exceptions.IllegalCTByteArraySizeException;
-import bce.java.utils.BCEConstraints;
 import bce.java.utils.MemoryUtil;
 
 /**
@@ -17,7 +17,7 @@ import bce.java.utils.MemoryUtil;
  * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
  *
  */
-public class BCECiphertext implements Serializable, BCEConstraints {
+public class BCECiphertext implements Serializable, BCEIOSpec {
 
     private static final long serialVersionUID = 6323148422446026311L;
 
@@ -40,7 +40,7 @@ public class BCECiphertext implements Serializable, BCEConstraints {
      */
     public byte[] ctC0ToBytes() {
 
-        if (CT_C0 == null || CT_C0.length != BCEConstraints.CT_C0_LENGTH)
+        if (CT_C0 == null || CT_C0.length != BCEIOSpec.CT_C0_LENGTH)
             throw new IllegalCTAttrSizeException("Ciphertext ctC0ToBytes(): CT_C0 null or wrong size");
 
         byte[] ctC0ByteBlock = new byte[CT_C0.length];
@@ -57,7 +57,7 @@ public class BCECiphertext implements Serializable, BCEConstraints {
      */
     public byte[] ctC1ToBytes() {
 
-        if (CT_C1 == null || CT_C1.length != BCEConstraints.CT_C1_LENGTH)
+        if (CT_C1 == null || CT_C1.length != BCEIOSpec.CT_C1_LENGTH)
             throw new IllegalCTAttrSizeException("Ciphertext ctC1ToBytes(): CT_C1 null or wrong size");
 
         byte[] ctC1ByteBlock = new byte[CT_C1.length];
@@ -79,19 +79,19 @@ public class BCECiphertext implements Serializable, BCEConstraints {
         if (ctC0 == null)
             throw new IllegalCTByteArraySizeException("Ciphertext buildCTFromBytes(): src byte array ctC0 null");
 
-        if (ctC0.length != BCEConstraints.CT_C0_LENGTH)
+        if (ctC0.length != BCEIOSpec.CT_C0_LENGTH)
             throw new IllegalCTByteArraySizeException("Ciphertext buildCTFromBytes(): src byte array ctC0 wrong size");
 
         if (ctC1 == null)
             throw new IllegalCTByteArraySizeException("Ciphertext buildCTFromBytes(): src byte array ctC1 null");
 
-        if (ctC1.length != BCEConstraints.CT_C1_LENGTH)
+        if (ctC1.length != BCEIOSpec.CT_C1_LENGTH)
             throw new IllegalCTByteArraySizeException("Ciphertext buildCTFromBytes(): src byte array ctC1 wrong size");
 
         BCECiphertext ct = new BCECiphertext();
 
-        byte[] c0 = new byte[BCEConstraints.CT_C0_LENGTH];
-        byte[] c1 = new byte[BCEConstraints.CT_C1_LENGTH];
+        byte[] c0 = new byte[BCEIOSpec.CT_C0_LENGTH];
+        byte[] c1 = new byte[BCEIOSpec.CT_C1_LENGTH];
 
         System.arraycopy(ctC0, 0, c0, 0, c0.length);
         System.arraycopy(ctC1, 0, c1, 0, c1.length);
@@ -165,7 +165,7 @@ public class BCECiphertext implements Serializable, BCEConstraints {
      * 将密文持久化输出流
      * 密文长度：208
      * </pre>
-     * @see see {@link bce.java.utils.BCEConstraints#writeExternal(OutputStream)}
+     * @see see {@link bce.java.utils.BCEIOSpec#writeExternal(OutputStream)}
      */
     @Override
     public void writeExternal(OutputStream out) throws IOException {

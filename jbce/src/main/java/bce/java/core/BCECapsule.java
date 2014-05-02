@@ -1,4 +1,4 @@
-package bce.java.utils;
+package bce.java.core;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 定义将数据使用密码加密后存储的接口
  * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
  */
-public interface BCECapsule extends Serializable, BCEConstraints {
+public interface BCECapsule extends Serializable, BCEIOSpec {
 
     /**
      * 设置加密数据
