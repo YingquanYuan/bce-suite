@@ -11,9 +11,9 @@ import bce.java.entities.BCEPrivateKey;
 import bce.java.entities.BCESymmetricKey;
 import bce.java.entities.BCESystem;
 import bce.java.entities.BCETransientKey;
-import bce.java.utils.BCEConstraints;
 import bce.java.utils.MemoryUtil;
 import bce.jni.bce.BCELibrary;
+import bce.jni.utils.BCEConstants;
 
 /**
  * 广播加密(BCE)的核心类，提供BCE相关的面向对象封装与方法，整个广播加密系统是由这个类所驱动的
@@ -33,7 +33,7 @@ public class BCEEngine {
         if (system == null)
             return null;
 
-        byte[] transientKeyBytes = new byte[BCEConstraints.PRIVATE_KEY_LENGTH];
+        byte[] transientKeyBytes = new byte[BCEConstants.PRIVATE_KEY_LENGTH];
 
         int result = BCELibrary.setup(system.getCurveParamsURI().getBytes(),
                 system.getUserNumber(), system.getServerSysParamsURI().getBytes(),
@@ -61,9 +61,9 @@ public class BCEEngine {
         if (transientKey == null)
             return null;
 
-        byte[][] BCEPrivKeyOut = new byte[system.getKeyFetchSize()][BCEConstraints.USER_PRIVATE_KEY_SIZE];
+        byte[][] BCEPrivKeyOut = new byte[system.getKeyFetchSize()][BCEConstants.USER_PRIVATE_KEY_SIZE];
         for (int i = 0; i < BCEPrivKeyOut.length; i++)
-            BCEPrivKeyOut[i] = new byte[BCEConstraints.USER_PRIVATE_KEY_SIZE];
+            BCEPrivKeyOut[i] = new byte[BCEConstants.USER_PRIVATE_KEY_SIZE];
 
         int result = BCELibrary.genPrivateKeys(system.getServerSysParamsURI().getBytes(),
                 transientKey.getTransientKey(), system.getUserNumber(), system.getKeyFetchStartIndex(),
@@ -96,9 +96,9 @@ public class BCEEngine {
         if (system == null)
             return null;
 
-        byte[] CTC0Out = new byte[BCEConstraints.CT_C0_LENGTH];
-        byte[] CTC1Out = new byte[BCEConstraints.CT_C1_LENGTH];
-        byte[] symmetricKeyOut = new byte[BCEConstraints.SYMMETRIC_KEY_LENGTH];
+        byte[] CTC0Out = new byte[BCEConstants.CT_C0_LENGTH];
+        byte[] CTC1Out = new byte[BCEConstants.CT_C1_LENGTH];
+        byte[] symmetricKeyOut = new byte[BCEConstants.SYMMETRIC_KEY_LENGTH];
 
         int result = BCELibrary.encrypt(system.getServerSysParamsURI().getBytes(), CTC0Out, CTC1Out, symmetricKeyOut);
 
@@ -133,7 +133,7 @@ public class BCEEngine {
         if (ciphertext == null)
             return null;
 
-        byte[] symmetricKeyOut = new byte[BCEConstraints.SYMMETRIC_KEY_LENGTH];
+        byte[] symmetricKeyOut = new byte[BCEConstants.SYMMETRIC_KEY_LENGTH];
 
         int result = BCELibrary.decrypt(clientSystem.getGlobalSysParamsURI().getBytes(),
                 privateKey.toBytes(), ciphertext.ctC0ToBytes(), ciphertext.ctC1ToBytes(), symmetricKeyOut);
@@ -191,10 +191,10 @@ public class BCEEngine {
         if (privateKeysList.size() != system.getChangeDecrProdBatchSize())
             return -80;
 
-        byte[] decrProdBatch = new byte[system.getChangeDecrProdBatchSize() * BCEConstraints.PRK_DECR_PROD_LENGTH];
-        byte[] decrProdBatchOut = new byte[system.getChangeDecrProdBatchSize() * BCEConstraints.PRK_DECR_PROD_LENGTH];
+        byte[] decrProdBatch = new byte[system.getChangeDecrProdBatchSize() * BCEConstants.PRK_DECR_PROD_LENGTH];
+        byte[] decrProdBatchOut = new byte[system.getChangeDecrProdBatchSize() * BCEConstants.PRK_DECR_PROD_LENGTH];
         for (int i = 0; i < privateKeysList.size(); i++){
-            System.arraycopy(privateKeysList.get(i).getDecr_prod(), 0, decrProdBatch, i * BCEConstraints.PRK_DECR_PROD_LENGTH, BCEConstraints.PRK_DECR_PROD_LENGTH);
+            System.arraycopy(privateKeysList.get(i).getDecr_prod(), 0, decrProdBatch, i * BCEConstants.PRK_DECR_PROD_LENGTH, BCEConstants.PRK_DECR_PROD_LENGTH);
         }
         int result = BCELibrary.changeDecryptionProduct(system.getGlobalSysParamsURI().getBytes(),
                 system.getChangeDecrProdStartIndex(), system.getChangeDecrProdBatchSize(), system.getAdds(),
@@ -204,7 +204,7 @@ public class BCEEngine {
             return -70;
 
         for (int i =0; i < privateKeysList.size(); i++) {
-            System.arraycopy(decrProdBatchOut, i * BCEConstraints.PRK_DECR_PROD_LENGTH, privateKeysList.get(i).getDecr_prod(), 0, BCEConstraints.PRK_DECR_PROD_LENGTH);
+            System.arraycopy(decrProdBatchOut, i * BCEConstants.PRK_DECR_PROD_LENGTH, privateKeysList.get(i).getDecr_prod(), 0, BCEConstants.PRK_DECR_PROD_LENGTH);
             if (system.getRems() != null && isInSet(system.getRems(), privateKeysList.get(i).getIntegerIndex()))
                 privateKeysList.get(i).setIsLegal(0);
             if (system.getAdds() != null && isInSet(system.getAdds(), privateKeysList.get(i).getIntegerIndex()))

@@ -1,21 +1,21 @@
-package bce.jni.test;
+package bce.server.junit;
 
-public interface BCEConstraints {
+public interface BCETestConstants {
 
     /**
      * 椭圆函数参数文件名, 绝对路径
      */
-    String CURVE_FILE_NAME = "/tmp/d201.param";
+    String CURVE_FILE_NAME = "/tmp/libbcejni.run/d201.param";
 
     /**
      * 广播加密系统参数文件名, 绝对路径
      */
-    String SYS_PARAMS_FILE_NAME = "/tmp/system.param";
+    String SYS_PARAMS_FILE_NAME = "/tmp/libbcejni.run/system.param";
 
     /**
      * 客户端使用的广播加密系统参数文件名, 绝对路径
      */
-    String GLOBAL_PARAMS_FILE_NAME = "/tmp/globalsystem.param";
+    String GLOBAL_PARAMS_FILE_NAME = "/tmp/libbcejni.run/globalsystem.param";
 
     /**
      * 广播加密系统中用户总数

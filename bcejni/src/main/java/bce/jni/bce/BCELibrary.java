@@ -1,8 +1,7 @@
 package bce.jni.bce;
 
-import bce.jni.exceptions.IllegalKeySizeException;
 import bce.jni.natives.BCENative;
-import bce.jni.utils.BCEJNIConstants;
+import bce.jni.utils.BCEConstants;
 
 public final class BCELibrary {
 
@@ -20,7 +19,7 @@ public final class BCELibrary {
      */
     public final static int setup(byte[] curveFileName, int numUser, byte[] sysParamsPath, byte[] globalParamsPath, byte[] sysPrivKeyOut) {
 
-        ensureArrayCapacity(sysPrivKeyOut, BCEJNIConstants.PRIVATE_KEY_LENGTH);
+        ensureArrayCapacity(sysPrivKeyOut, BCEConstants.PRIVATE_KEY_LENGTH);
 
         return BCENative.setup(curveFileName, numUser, sysParamsPath, globalParamsPath, sysPrivKeyOut);
     }
@@ -41,7 +40,7 @@ public final class BCELibrary {
         ensureArrayCapacity(userPrivKeysOut, length);
 
         for (byte[] bs : userPrivKeysOut) {
-            ensureArrayCapacity(bs, BCEJNIConstants.USER_PRIVATE_KEY_SIZE);
+            ensureArrayCapacity(bs, BCEConstants.USER_PRIVATE_KEY_SIZE);
         }
 
         return BCENative.genPrivateKeys(sysParamsPath, sysPrivKey, numUser, startIndex, length, userPrivKeysOut);
@@ -58,9 +57,9 @@ public final class BCELibrary {
      */
     public final static int encrypt(byte[] sysParamsPath, byte[] CTC0Out, byte[] CTC1Out, byte[] symmetricKeyOut) {
 
-        ensureArrayCapacity(CTC0Out, BCEJNIConstants.CT_C0_LENGTH);
-        ensureArrayCapacity(CTC1Out, BCEJNIConstants.CT_C1_LENGTH);
-        ensureArrayCapacity(symmetricKeyOut, BCEJNIConstants.SYMMETRIC_KEY_LENGTH);
+        ensureArrayCapacity(CTC0Out, BCEConstants.CT_C0_LENGTH);
+        ensureArrayCapacity(CTC1Out, BCEConstants.CT_C1_LENGTH);
+        ensureArrayCapacity(symmetricKeyOut, BCEConstants.SYMMETRIC_KEY_LENGTH);
 
         return BCENative.encrypt(sysParamsPath, CTC0Out, CTC1Out, symmetricKeyOut);
     }
@@ -77,7 +76,7 @@ public final class BCELibrary {
      */
     public final static int decrypt(byte[] globalParamsPath, byte[] userPrivKey, byte[] CTC0, byte[] CTC1, byte[] symmetricKeyOut) {
 
-        ensureArrayCapacity(symmetricKeyOut, BCEJNIConstants.SYMMETRIC_KEY_LENGTH);
+        ensureArrayCapacity(symmetricKeyOut, BCEConstants.SYMMETRIC_KEY_LENGTH);
 
         return BCENative.decrypt(globalParamsPath, userPrivKey, CTC0, CTC1, symmetricKeyOut);
     }
@@ -117,7 +116,7 @@ public final class BCELibrary {
 
         ensureArrayCapacity(adds, nAdds);
         ensureArrayCapacity(rems, nRems);
-        ensureArrayCapacity(decrProdBatchOut, BCEJNIConstants.PRK_DECR_PROD_LENGTH * length);
+        ensureArrayCapacity(decrProdBatchOut, BCEConstants.PRK_DECR_PROD_LENGTH * length);
 
         return BCENative.changeDecryptionProduct(globalParamsPath, offset, length, adds, nAdds, rems, nRems, decrProdBatch, decrProdBatchOut);
     }
@@ -127,30 +126,30 @@ public final class BCELibrary {
             if (capacity == 0)
                 return;
             else
-                throw new IllegalKeySizeException(new StringBuilder("array is null, but capacity is not 0!").toString());
+                throw new IllegalArgumentException(new StringBuilder("array is null, but capacity is not 0!").toString());
         }
         if (capacity < 0)
-            throw new IllegalKeySizeException(new StringBuilder("minimum size must be above zero:").append(capacity).toString());
+            throw new IllegalArgumentException(new StringBuilder("minimum size must be above zero:").append(capacity).toString());
         if (array.length != capacity)
-            throw new IllegalKeySizeException("unmatched array length and capacity");
+            throw new IllegalArgumentException("unmatched array length and capacity");
     }
 
     private final static void ensureArrayCapacity(byte[] array, int min) {
         if (array == null)
-            throw new IllegalKeySizeException(new StringBuilder("array size must be at least:").append(min).append(",actural:0").toString());
+            throw new IllegalArgumentException(new StringBuilder("array size must be at least:").append(min).append(",actural:0").toString());
         if (min < 1)
             throw new IllegalArgumentException(new StringBuilder("minimum size must be above zero:").append(min).toString());
         if (array.length < min)
-            throw new IllegalKeySizeException(new StringBuilder("array size must be at least:").append(min).append(",actural:").append(array.length).toString());
+            throw new IllegalArgumentException(new StringBuilder("array size must be at least:").append(min).append(",actural:").append(array.length).toString());
     }
 
     private final static void ensureArrayCapacity(byte[][] array, int min) {
         if (array == null)
-            throw new IllegalKeySizeException(new StringBuilder("array size must be at least:").append(min).append(",actural:0").toString());
+            throw new IllegalArgumentException(new StringBuilder("array size must be at least:").append(min).append(",actural:0").toString());
         if (min < 1)
             throw new IllegalArgumentException(new StringBuilder("minimum size must be above zero:").append(min).toString());
         if (array.length < min)
-            throw new IllegalKeySizeException(new StringBuilder("array size must be at least:").append(min).append(",actural:").append(array.length).toString());
+            throw new IllegalArgumentException(new StringBuilder("array size must be at least:").append(min).append(",actural:").append(array.length).toString());
     }
 
 }

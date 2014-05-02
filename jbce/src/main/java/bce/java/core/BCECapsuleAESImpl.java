@@ -1,4 +1,4 @@
-package bce.java.utils;
+package bce.java.core;
 
 import static bce.jni.utils.BCEUtils.bytesToInt;
 import static bce.jni.utils.BCEUtils.intToBytes;
@@ -23,6 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import bce.java.io.SecureByteArrayInputStream;
 import bce.java.io.SecureByteArrayOutputStream;
+import bce.java.utils.Hash;
 
 /**
  * BCECapsule的AES实现<br>
@@ -80,7 +81,7 @@ public class BCECapsuleAESImpl implements BCECapsule {
      * 加密数据长度 4字节
      * 加密数据
      * </pre>
-     * @see see {@link bce.java.utils.BCEConstraints#writeExternal(OutputStream)}
+     * @see see {@link bce.java.utils.BCEIOSpec#writeExternal(OutputStream)}
      */
     @Override
     public void writeExternal(OutputStream out) throws IOException {

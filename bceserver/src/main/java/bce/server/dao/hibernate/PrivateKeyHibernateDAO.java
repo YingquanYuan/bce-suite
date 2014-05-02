@@ -22,10 +22,10 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.jdbc.Work;
 
+import bce.java.core.BCECapsule;
+import bce.java.core.BCECapsuleAESImpl;
 import bce.java.io.SecureByteArrayInputStream;
 import bce.java.io.SecureByteArrayOutputStream;
-import bce.java.utils.BCECapsule;
-import bce.java.utils.BCECapsuleAESImpl;
 import bce.server.dao.AESKeyDAO;
 import bce.server.dao.PrivateKeyDAO;
 import bce.server.daosupport.jdbc.AESKeySupport;

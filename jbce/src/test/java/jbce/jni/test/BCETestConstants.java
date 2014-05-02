@@ -1,31 +1,21 @@
-package bce.java.utils;
+package jbce.jni.test;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-/**
- * 提供BCE系统需要的一些常量和通用I/O接口的声明
- *
- * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
- *
- */
-public interface BCEConstraints {
+public interface BCETestConstants {
 
     /**
      * 椭圆函数参数文件名, 绝对路径
      */
-    String CURVE_FILE_NAME = "/tmp/d201.param";
+    String CURVE_FILE_NAME = "/tmp/libbcejni.run/d201.param";
 
     /**
      * 广播加密系统参数文件名, 绝对路径
      */
-    String SYS_PARAMS_FILE_NAME = "/tmp/system.param";
+    String SYS_PARAMS_FILE_NAME = "/tmp/libbcejni.run/system.param";
 
     /**
      * 客户端使用的广播加密系统参数文件名, 绝对路径
      */
-    String GLOBAL_PARAMS_FILE_NAME = "/tmp/globalsystem.param";
+    String GLOBAL_PARAMS_FILE_NAME = "/tmp/libbcejni.run/globalsystem.param";
 
     /**
      * 广播加密系统中用户总数
@@ -82,19 +72,4 @@ public interface BCEConstraints {
      * 广播加密系统生成的对称密钥（消息加密密钥）长度, GT组, 156bytes
      */
     int SYMMETRIC_KEY_LENGTH = 156;
-
-    /**
-     * 将实例持久化到输出流
-     * @param out 输出流
-     * @throws IOException 发生IO异常
-     */
-    void writeExternal(OutputStream out) throws IOException;
-
-    /**
-     * 从输入流中读取实例数据
-     * @param in 输入流
-     * @throws IOException 发生IO异常
-     * @throws ClassNotFoundException 读取的数据无法作为类的数据
-     */
-    void readExternal(InputStream in) throws IOException, ClassNotFoundException;
 }
