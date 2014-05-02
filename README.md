@@ -3,7 +3,7 @@ bce-suite
 
 This is an implementation and infrastructure of the **Broadcast Encryption (BCE)**.
 
-## Introduction
+### Introduction
 
 **Broadcast Encryption** is one of the public key encrytion schemes based on elliptic
 curves, and it was also my research interest when I was in Soochow Univeristy.
@@ -18,7 +18,7 @@ Currently, this project contains:
 I am now working on the refactoring and continuous integration for this project bundle, and **MORE** stuff will come.
 
 
-## References
+### References
 
 For details about Broadcast Encryption, see:
 
