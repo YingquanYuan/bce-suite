@@ -298,8 +298,6 @@ void StoreGlobalParams(char *systemFileName, global_broadcast_params_t gbp)
         return;
     }
     count = fread(param_string, 1, 16384, curveFile);
-    if (count == 16384)
-        pbc_die("input error");
     fclose(curveFile);
 
     FILE *sysp = fopen(systemFileName, "w");
@@ -311,10 +309,6 @@ void StoreGlobalParams(char *systemFileName, global_broadcast_params_t gbp)
 
     fwrite(&count, 4, 1, sysp);
     fwrite(param_string, 1, count, sysp);
-
-    //int leng = strlen(gbp->pairFileName) + 1;  /** d201.param */
-    //fwrite(&leng, 4, 1, sysp);
-    //fwrite(gbp->pairFileName, 1, leng, sysp);
 
     //store num_users
     fwrite(&(gbp->num_users), 4, 1, sysp);
@@ -357,7 +351,7 @@ void LoadParams(char *systemFileName,
         printf("ACK!  You gave me no broadcast params!  I die.\n");
         return;
     }
-    if(!gbp)
+    if(!sys)
     {
         printf("ACK!  You gave me no broadcast system!  I die.\n");
         return;
@@ -381,7 +375,7 @@ void LoadParams(char *systemFileName,
         return;
     }
 
-    int leng;
+    int leng = 0;
     fread(&leng, 4, 1, sysp);
     p->pairFileName = (char *) pbc_malloc(leng);
     fread(p->pairFileName, 1, leng, sysp);
@@ -397,7 +391,8 @@ void LoadParams(char *systemFileName,
     if (!count) pbc_die("input error");
     fclose(params);
 
-    if (pairing_init_set_buf(p->pairing, param_string, count)) pbc_die("pairing init failed");
+    if (pairing_init_set_buf(p->pairing, param_string, count))
+        pbc_die("pairing init failed");
 
     //restore num_users
     fread(&(p->num_users),4,1, sysp);
@@ -454,6 +449,10 @@ void LoadParams(char *systemFileName,
 
 void LoadGlobalParams(char *systemFileName, global_broadcast_params_t *gbp)
 {
+    global_broadcast_params_t p;
+    size_t count = 0;
+    char *param_string = NULL;
+
     if(!gbp)
     {
         printf("ACK!  You gave me no broadcast params!  I die.\n");
@@ -466,9 +465,6 @@ void LoadGlobalParams(char *systemFileName, global_broadcast_params_t *gbp)
         return;
     }
 
-    global_broadcast_params_t p;
-    char *param_string;
-
     p = pbc_malloc(sizeof(struct global_broadcast_params_s));
 
     FILE *sysp = fopen(systemFileName, "r");
@@ -478,17 +474,17 @@ void LoadGlobalParams(char *systemFileName, global_broadcast_params_t *gbp)
         return;
     }
 
-    size_t count;
     fread(&count, 4, 1, sysp);
-    param_string = (char *) malloc(count);
+    param_string = (char *) pbc_malloc(count);
     fread(param_string, 1, count, sysp);
 
     if (pairing_init_set_buf(p->pairing, param_string, count))
         pbc_die("pairing init failed");
+    free(param_string);
 
-    p->pairFileName = (char *) malloc(1);
+    p->pairFileName = (char *) pbc_malloc(16);
     //restore num_users
-    fread(&(p->num_users),4,1, sysp);
+    fread(&(p->num_users), 4, 1, sysp);
 
     //restore g
     element_init(p->g, p->pairing->G1);

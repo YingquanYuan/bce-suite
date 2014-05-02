@@ -6,9 +6,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import bce.java.core.BCEIOSpec;
 import bce.java.exceptions.IllegalSymmKeyAttrSizeException;
 import bce.java.exceptions.IllegalSymmKeyByteArraySizeException;
-import bce.java.utils.BCEConstraints;
 import bce.java.utils.MemoryUtil;
 
 /**
@@ -17,7 +17,7 @@ import bce.java.utils.MemoryUtil;
  * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
  *
  */
-public class BCESymmetricKey implements Serializable, BCEConstraints {
+public class BCESymmetricKey implements Serializable, BCEIOSpec {
 
     private static final long serialVersionUID = 6458899786155936887L;
 
@@ -34,7 +34,7 @@ public class BCESymmetricKey implements Serializable, BCEConstraints {
      */
     public byte[] toBytes() {
 
-        if (symmetricKey == null || symmetricKey.length != BCEConstraints.SYMMETRIC_KEY_LENGTH)
+        if (symmetricKey == null || symmetricKey.length != BCEIOSpec.SYMMETRIC_KEY_LENGTH)
             throw new IllegalSymmKeyAttrSizeException("SymmetricKey toBytes(): symmetricKey null or wrong size");
 
         byte[] symmKey = new byte[symmetricKey.length];
@@ -54,12 +54,12 @@ public class BCESymmetricKey implements Serializable, BCEConstraints {
         if (symmKey == null)
             throw new IllegalSymmKeyByteArraySizeException("SymmtricKey buildSymmKeyFromBytes(): symmKey null");
 
-        if (symmKey.length != BCEConstraints.SYMMETRIC_KEY_LENGTH)
+        if (symmKey.length != BCEIOSpec.SYMMETRIC_KEY_LENGTH)
             throw new IllegalSymmKeyByteArraySizeException("SymmtricKey buildSymmKeyFromBytes(): symmKey wrong size");
 
         BCESymmetricKey symmetricKey = new BCESymmetricKey();
 
-        byte[] symmKeyBlock = new byte[BCEConstraints.SYMMETRIC_KEY_LENGTH];
+        byte[] symmKeyBlock = new byte[BCEIOSpec.SYMMETRIC_KEY_LENGTH];
         System.arraycopy(symmKey, 0, symmKeyBlock, 0, symmKeyBlock.length);
 
         symmetricKey.setSymmetricKey(symmKeyBlock);
@@ -117,7 +117,7 @@ public class BCESymmetricKey implements Serializable, BCEConstraints {
      * 将对称密钥持久化到输出流
      * 对称密钥长度：156字节
      * </pre>
-     * @see see {@link bce.java.utils.BCEConstraints#writeExternal(OutputStream)}
+     * @see see {@link bce.java.utils.BCEIOSpec#writeExternal(OutputStream)}
      */
     @Override
     public void writeExternal(OutputStream out) throws IOException {

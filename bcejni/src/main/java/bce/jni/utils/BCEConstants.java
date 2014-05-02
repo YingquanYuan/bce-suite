@@ -1,6 +1,6 @@
 package bce.jni.utils;
 
-public interface BCEJNIConstants {
+public interface BCEConstants {
 
     /**
      * 用户实际获取的私钥结构长度
@@ -15,6 +15,14 @@ public interface BCEJNIConstants {
      *</pre>
      */
     int USER_PRIVATE_KEY_SIZE = 316;
+
+    int PRK_INDEX_LENGTH = 4;
+
+    int PRK_G_I_GAMMA_LENGTH = 52;
+
+    int PRK_G_I_LENGTH = 52;
+
+    int PRK_H_I_LENGTH = 156;
 
     int PRK_DECR_PROD_LENGTH = 52;
 

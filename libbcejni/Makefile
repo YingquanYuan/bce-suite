@@ -32,13 +32,12 @@ SRC_DIR     := ./src
 SRCS        := $(shell find $(SRC_DIR) -name "*.c" -print)
 OBJS        := $(SRCS:%.c=%.o)
 TARGET_DIR  := ./target
-COPY_DIR    := ../bcejni/src/main/resources
 
 CLEAN_EXTENSIONS = o $(LIBEXTENSION)
 LIBBCEJNI = $(TARGET_DIR)/$(LIBNAME).$(LIBEXTENSION)
 
 .PHONY: all
-all: mkdir $(LIBBCEJNI) copy
+all: mkdir $(LIBBCEJNI)
 
 $(LIBBCEJNI): $(OBJS)
 	$(CC) $(SHARED) -o $@ $^ $(LDFLAGS)
@@ -49,10 +48,6 @@ $(LIBBCEJNI): $(OBJS)
 .PHONY: mkdir
 mkdir:
 	$(shell mkdir -p $(TARGET_DIR))
-
-.PHONY: copy
-copy:
-	$(shell cp $(LIBBCEJNI) $(COPY_DIR))
 
 .PHONY: clean
 clean:

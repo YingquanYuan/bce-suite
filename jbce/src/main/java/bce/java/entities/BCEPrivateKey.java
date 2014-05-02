@@ -7,9 +7,9 @@ import java.io.Serializable;
 import java.security.PrivateKey;
 import java.util.Arrays;
 
+import bce.java.core.BCEIOSpec;
 import bce.java.exceptions.IllegalPrivKeyAttrSizeException;
 import bce.java.exceptions.IllegalPrivKeyByteArraySizeException;
-import bce.java.utils.BCEConstraints;
 import bce.java.utils.MemoryUtil;
 import bce.jni.utils.BCEUtils;
 
@@ -19,7 +19,7 @@ import bce.jni.utils.BCEUtils;
  * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
  *
  */
-public class BCEPrivateKey implements Serializable, BCEConstraints, PrivateKey {
+public class BCEPrivateKey implements Serializable, BCEIOSpec, PrivateKey {
 
     private static final long serialVersionUID = 8389196035857169080L;
 
@@ -44,7 +44,7 @@ public class BCEPrivateKey implements Serializable, BCEConstraints, PrivateKey {
      */
     public byte[] toBytes() {
 
-        if (getIntegerIndex() < 1 || getIntegerIndex() > USER_NUMBER)
+        if (getIntegerIndex() < 1)
             throw new IllegalPrivKeyAttrSizeException("PrivateKey toBytes(): user index out of range");
 
         if (g_i_gamma == null || g_i_gamma.length != PRK_G_I_GAMMA_LENGTH)
@@ -247,7 +247,7 @@ public class BCEPrivateKey implements Serializable, BCEConstraints, PrivateKey {
      * h_i，G2组，156字节
      * decr_prod，G1组，52字节
      * </pre>
-     * @see see {@link bce.java.utils.BCEConstraints#writeExternal(OutputStream)}
+     * @see see {@link bce.java.utils.BCEIOSpec#writeExternal(OutputStream)}
      */
     @Override
     public void writeExternal(OutputStream out) throws IOException {
