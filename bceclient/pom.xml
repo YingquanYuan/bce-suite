@@ -7,13 +7,6 @@
   <packaging>jar</packaging>
   <name>BCE Streaming Media Client</name>
 
-  <repositories>
-    <repository>
-      <id>swt-repo</id>
-      <url>https://swt-repo.googlecode.com/svn/repo/</url>
-    </repository>
-  </repositories>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -38,9 +31,9 @@
 
     <!-- SWT -->
     <dependency>
-      <groupId>org.eclipse.swt</groupId>
-      <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
-      <version>4.3.2</version>
+      <groupId>org.eclipse.swt.gtk.linux</groupId>
+      <artifactId>x86</artifactId>
+      <version>3.3.0-v3346</version>
     </dependency>
 
     <!-- JBoss Netty -->

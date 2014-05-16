@@ -190,7 +190,7 @@ public class ClientUI {
                             playList.removeAll();
                             for (int i = 0; i < playlist.length; i++)
                                 playList.add(playlist[i]);
-                            lblImage.setImage(new Image(Display.getDefault(), "/home/robins/桌面/密钥与参数文件/logo_user.png"));
+                            lblImage.setImage(new Image(Display.getDefault(), "/home/yingquan/logo_user.png"));
                             userName = txtUserName.getText().trim();
                             password = txtUserName.getText().trim();
                             isLogin = true;
@@ -435,7 +435,7 @@ public class ClientUI {
 
         lblImage = new CLabel(compositeUsr, SWT.CENTER);
         lblImage.setBounds(10, 39, 76, 64);
-        lblImage.setImage(new Image(Display.getDefault(), "/home/robins/桌面/密钥与参数文件/logo.png"));
+        lblImage.setImage(new Image(Display.getDefault(), "/home/yingquan/logo.png"));
 //		lblImage.setVisible(false);
     }
 }
