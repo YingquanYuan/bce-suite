@@ -1,4 +1,4 @@
-package bce.swt.util;
+package bce.client.player;
 
 import java.io.BufferedReader;
 import java.io.IOException;

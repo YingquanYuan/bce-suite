@@ -1,4 +1,4 @@
-package bce.swt.conf;
+package bce.client.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

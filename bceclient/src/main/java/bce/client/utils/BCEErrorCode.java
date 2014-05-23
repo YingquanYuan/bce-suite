@@ -1,4 +1,4 @@
-package bce.swt.conf;
+package bce.client.utils;
 
 public interface BCEErrorCode {
 	

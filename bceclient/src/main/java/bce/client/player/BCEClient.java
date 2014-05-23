@@ -1,4 +1,4 @@
-package bce.swt.clientUI;
+package bce.client.player;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,23 +21,21 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wb.swt.SWTResourceManager;
 import org.jboss.netty.channel.ChannelFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bce.client.requests.BCEFetchSizeRequest;
+import bce.client.requests.BCELoginRequest;
+import bce.client.requests.RTMPConnRequest;
+import bce.client.utils.BCEErrorCode;
+import bce.client.utils.BCEURLProvider;
+import bce.client.utils.SWTResourceManager;
 import bce.jni.utils.BCEUtils;
-import bce.swt.conf.BCEErrorCode;
-import bce.swt.conf.BCEURLProvider;
-import bce.swt.requests.BCEFetchSizeRequest;
-import bce.swt.requests.BCELoginRequest;
-import bce.swt.requests.RTMPConnRequest;
-import bce.swt.util.BCEHandler;
-import bce.swt.util.Player;
 
-public class ClientUI {
+public class BCEClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientUI.class);
+    private static final Logger logger = LoggerFactory.getLogger(BCEClient.class);
 
     protected String sessionId;
     protected BCEURLProvider provider;
@@ -81,7 +79,7 @@ public class ClientUI {
      */
     public static void main(String[] args) {
         try {
-            ClientUI window = new ClientUI();
+            BCEClient window = new BCEClient();
             window.open();
         } catch (Exception e) {
             e.printStackTrace();

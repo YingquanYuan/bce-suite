@@ -1,4 +1,4 @@
-package bce.swt.servicers;
+package bce.client.servicers;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
