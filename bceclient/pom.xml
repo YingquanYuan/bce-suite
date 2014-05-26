@@ -5,11 +5,12 @@
   <artifactId>bceclient</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
-  <name>BCE Streaming Media Client</name>
+  <name>Broadcast Encryption Streaming Media Client</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <swt.version>3.3.0-v3346</swt.version>
   </properties>
 
   <dependencies>
@@ -31,9 +32,9 @@
 
     <!-- SWT -->
     <dependency>
-      <groupId>org.eclipse.swt.gtk.linux</groupId>
-      <artifactId>x86</artifactId>
-      <version>3.3.0-v3346</version>
+      <groupId>${swt.groupId}</groupId>
+      <artifactId>${swt.artifactId}</artifactId>
+      <version>${swt.version}</version>
     </dependency>
 
     <!-- JBoss Netty -->
@@ -66,8 +67,37 @@
       <artifactId>commons-httpclient</artifactId>
       <version>3.1</version>
     </dependency>
-
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>linux64</id>
+      <activation>
+        <os>
+          <family>linux</family>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <properties>
+        <swt.groupId>org.eclipse.swt.gtk.linux</swt.groupId>
+        <swt.artifactId>x86</swt.artifactId>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>osx64</id>
+      <activation>
+        <os>
+          <family>mac</family>
+          <arch>x86_64</arch>
+        </os>
+      </activation>
+      <properties>
+        <swt.groupId>org.eclipse.swt.carbon</swt.groupId>
+        <swt.artifactId>macosx</swt.artifactId>
+      </properties>
+    </profile>
+  </profiles>
 
   <build>
     <finalName>bceclient</finalName>
@@ -82,27 +112,6 @@
           <target>1.6</target>
         </configuration>
       </plugin>
-
-      <!-- <plugin> -->
-      <!-- <groupId>org.apache.maven.plugins</groupId> -->
-      <!-- <artifactId>maven-install-plugin</artifactId> -->
-      <!-- <version>2.4</version> -->
-      <!-- <executions> -->
-      <!-- <execution> -->
-      <!-- <phase>initialize</phase> -->
-      <!-- <goals> -->
-      <!-- <goal>install-file</goal> -->
-      <!-- </goals> -->
-      <!-- <configuration> -->
-      <!-- <groupId>bce.client.swt</groupId> -->
-      <!-- <artifactId>macosx</artifactId> -->
-      <!-- <version>1.0</version> -->
-      <!-- <packaging>jar</packaging> -->
-      <!-- <file>${basedir}/lib/org.eclipse.swt.cocoa.macosx.x86_64_3.102.1.v20140206-1358.jar</file> -->
-      <!-- </configuration> -->
-      <!-- </execution> -->
-      <!-- </executions> -->
-      <!-- </plugin> -->
 
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>

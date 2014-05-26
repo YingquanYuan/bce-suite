@@ -188,7 +188,7 @@ public class BCEClient {
                             playList.removeAll();
                             for (int i = 0; i < playlist.length; i++)
                                 playList.add(playlist[i]);
-                            lblImage.setImage(new Image(Display.getDefault(), "/tmp/logo_user.png"));
+                            lblImage.setImage(new Image(Display.getDefault(), BCEClient.class.getResourceAsStream("/images/logo_user.png")));
                             userName = txtUserName.getText().trim();
                             password = txtUserName.getText().trim();
                             isLogin = true;
@@ -197,7 +197,6 @@ public class BCEClient {
                     }
                 }, provider.getLoginURL(), sessionId, txtUserName.getText().trim(), txtPassword.getText().trim());
                 display.asyncExec(request);
-//				MessageDialog.open(MessageDialog.INFORMATION, shell, "alert", sessionId, MessageDialog.NONE);
             }
 
             @Override
@@ -328,7 +327,7 @@ public class BCEClient {
                 }
                 try {
                     lblStatus.setText("Currently playing: " + localVideoName.toString().substring(localVideoName.lastIndexOf("/") + 1));
-                    player.start(localVideoName.toString(), compositePlay.embeddedHandle);
+                    player.start(localVideoName.toString(), compositePlay.handle);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -401,11 +400,6 @@ public class BCEClient {
                 localVideoName = new StringBuffer().append("/home/robins/").append(videoName);
                 remoteVideoName = videoName;
                 lblStatus.setText("Info: " + videoName + " chosen");
-//				MessageBox box = new MessageBox(shell, SWT.ICON_INFORMATION | SWT.OK);
-//				box.setMessage("You ordered the video: " + videoName + "\nPlease connect to media server now");
-//				box.setText("prompt");
-//				box.open();
-//				MessageDialog.open(MessageDialog.INFORMATION, shell, "alert", "You ordered the video: " + playList.getItem(playList.getSelectionIndex()), MessageDialog.NONE);
             }
 
             @Override
@@ -433,7 +427,6 @@ public class BCEClient {
 
         lblImage = new CLabel(compositeUsr, SWT.CENTER);
         lblImage.setBounds(10, 39, 76, 64);
-        lblImage.setImage(new Image(Display.getDefault(), "/tmp/logo.png"));
-//		lblImage.setVisible(false);
+        lblImage.setImage(new Image(Display.getDefault(), BCEClient.class.getResourceAsStream("/images/logo.png")));
     }
 }
