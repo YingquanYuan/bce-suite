@@ -18,6 +18,7 @@
         <module>bcejni</module>
         <module>jbce</module>
         <module>bceserver</module>
+        <module>bceclient</module>
 
     </modules>
 

@@ -6,7 +6,8 @@
   <artifactId>bceserver</artifactId>
   <packaging>war</packaging>
   <version>1.0.0</version>
-  <name>Broadcast Encryption Web Server</name>
+  <name>BCE Web Server</name>
+  <description>The Java Web Server for Securely Generating, Managing and Distributing Broadcast Ecryption Keys</description>
   <url>http://maven.apache.org</url>
 
   <repositories>

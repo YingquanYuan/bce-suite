@@ -5,7 +5,8 @@
   <artifactId>bceclient</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
-  <name>Broadcast Encryption Streaming Media Client</name>
+  <name>BCE Streaming Media Client</name>
+  <description>The Streaming Media Client of the BCE Web Server and BCE Streaming Server</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -7,7 +7,7 @@
   <version>1.0.0</version>
   <packaging>jar</packaging>
   <name>BCE Java Library</name>
-  <description>Broadcast Encrytion Java Library</description>
+  <description>The Java OO Encapsulation of Broadcast Encrytion Library</description>
 
   <dependencies>
     <!-- Customized Libraries -->
