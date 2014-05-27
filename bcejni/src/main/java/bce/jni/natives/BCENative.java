@@ -5,7 +5,27 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
+/**
+ * <p>Boneh-Gentry-Waters Broadcast Encryption (BCE) JNI wrapper</p>
+ * <p>
+ * This is the most udnerlying JNI wrapper of libbcejni, all native methods of
+ * libbcejni are defined here.
+ * </p>
+ * <p>
+ * BCE has the standard 4 phases for describing a public key cryptographic system:
+ * <ul>
+ * <li>Setup</li>
+ * <li>KeysGeneration</li>
+ * <li>Encrypt</li>
+ * <li>Decrypt</li>
+ * </ul>
+ * Besides, changeEncryptionProduct and changeDecryptionProduct is BCE specific, and
+ * they implemented the dynamically adding and revoking users in a BCE crypto group
+ * features.
+ * This feature has been described and proved in Boneh-Gentry-Waters BCE scheme.
+ * </p>
+ * @author Yingquan
+ */
 public final class BCENative {
 
     private BCENative() {}
@@ -99,10 +119,12 @@ public final class BCENative {
     }
 
     /**
-     * 用于首次生成BCE环境参数，在本地函数内部读取椭圆函数参数，生成广播加密系统参数并存入指定文件
+     * Initializes a BCE system, and generates the BCE environment parameters.
+     * This method will load a elliptic curve parameters file, and generates
+     * 2 BCE system parameters files.
      *
-     * @param curveFileName 保存椭圆函数的文件绝对路径
-     * @param numUser BCE系统用户数目，必须为8的倍数
+     * @param curveFileName The absolute name of the curve parameter file
+     * @param numUser The user number of the current BCE system instance, must be times of 8
      * @param sysParamsPath 用于指定BCE系统参数的生成绝对路径
      * @param globalParamsPath 用于指定BCE全局系统参数的生成绝对路径
      * @param sysPrivKey_out 用于返回即将被销毁的用户私钥
