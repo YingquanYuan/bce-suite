@@ -1,0 +1,136 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>bce.client</groupId>
+  <artifactId>bceclient</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>BCE Streaming Media Client</name>
+  <description>The Streaming Media Client of the BCE Web Server and BCE Streaming Server</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <swt.version>3.3.0-v3346</swt.version>
+  </properties>
+
+  <dependencies>
+    <!-- Test Libraries -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Customized Libraries -->
+    <dependency>
+      <groupId>bce.java</groupId>
+      <artifactId>jbce</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- SWT -->
+    <dependency>
+      <groupId>${swt.groupId}</groupId>
+      <artifactId>${swt.artifactId}</artifactId>
+      <version>${swt.version}</version>
+    </dependency>
+
+    <!-- JBoss Netty -->
+    <dependency>
+      <groupId>org.jboss.netty</groupId>
+      <artifactId>netty</artifactId>
+      <version>3.2.0.Final</version>
+    </dependency>
+
+    <!-- slf4j -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+
+    <!-- apache libraries -->
+    <dependency>
+      <groupId>commons-cli</groupId>
+      <artifactId>commons-cli</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>3.1</version>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>linux64</id>
+      <activation>
+        <os>
+          <family>linux</family>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <properties>
+        <swt.groupId>org.eclipse.swt.gtk.linux</swt.groupId>
+        <swt.artifactId>x86</swt.artifactId>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>osx64</id>
+      <activation>
+        <os>
+          <family>mac</family>
+          <arch>x86_64</arch>
+        </os>
+      </activation>
+      <properties>
+        <swt.groupId>org.eclipse.swt.carbon</swt.groupId>
+        <swt.artifactId>macosx</swt.artifactId>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <finalName>bceclient</finalName>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.0</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
