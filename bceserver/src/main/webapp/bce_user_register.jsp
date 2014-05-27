@@ -115,7 +115,7 @@
 								<td>
 									<div id="vc_code" style="display: none;">
 										<img id="vcImg" name="vcImg" alt="Authenticode" align="top" src="ValidateCodeServlet.sl" />
-										<a id="aRecode" href="javascript: document.getElementById('vcImg').src='ValidateCodeServlet.sl?'+Math.random();" class="font_gray" >Too vague, change it!</a>
+										<a id="aRecode" href="javascript: document.getElementById('vcImg').src='ValidateCodeServlet.sl?'+Math.random(); return false;" class="font_gray" >Too vague, change it!</a>
 									</div>
 								</td>
 							</tr>
