@@ -9,6 +9,11 @@
   <name>BCE Java Library</name>
   <description>The Java OO Encapsulation of Broadcast Encrytion Library</description>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
   <dependencies>
     <!-- Customized Libraries -->
     <dependency>

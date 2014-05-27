@@ -1,0 +1,11 @@
+bce.server.dao
+bce.server.dao.hibernate
+bce.server.daosupport.jdbc
+bce.server.entities
+bce.server.exception
+bce.server.filters
+bce.server.init
+bce.server.junit
+bce.server.servicers
+bce.server.servlets
+bce.server.util
