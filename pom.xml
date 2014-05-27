@@ -6,8 +6,8 @@
     <artifactId>bce-backend</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
-
-    <name>Broadcast Encryption System Backend</name>
+    <name>BCE System Backend</name>
+    <description>Backend of Broadcast Encrpytion System</description>
 
     <scm>
         <developerConnection></developerConnection>
