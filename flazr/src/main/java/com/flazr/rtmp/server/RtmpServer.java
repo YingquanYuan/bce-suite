@@ -47,7 +47,6 @@ public class RtmpServer {
         bootstrap.setPipelineFactory(new ServerPipelineFactory());
         bootstrap.setOption("child.tcpNoDelay", true);
         bootstrap.setOption("child.keepAlive", true);
-        //042889 // 18962165379
         final InetSocketAddress socketAddress = new InetSocketAddress(RtmpConfig.SERVER_PORT);
         bootstrap.bind(socketAddress);
         logger.info("server started, listening on: {}", socketAddress);
