@@ -34,15 +34,15 @@ public class RtmpDecoder extends ReplayingDecoder<DecoderState> {
 
     private static final Logger logger = LoggerFactory.getLogger(RtmpDecoder.class);
 
-    public static enum DecoderState {        
+    public static enum DecoderState {
         GET_HEADER,
         GET_PAYLOAD
     }
 
     public RtmpDecoder() {
-        super(DecoderState.GET_HEADER);                
+        super(DecoderState.GET_HEADER);
     }
-    
+
     private RtmpHeader header;
     private int channelId;
     private ChannelBuffer payload;
@@ -54,7 +54,7 @@ public class RtmpDecoder extends ReplayingDecoder<DecoderState> {
 
     @Override
     protected Object decode(final ChannelHandlerContext ctx, final Channel channel, final ChannelBuffer in, final DecoderState state) {
-        switch(state) {            
+        switch(state) {
             case GET_HEADER:
                 header = new RtmpHeader(in, incompleteHeaders);
                 channelId = header.getChannelId();
@@ -64,16 +64,16 @@ public class RtmpDecoder extends ReplayingDecoder<DecoderState> {
                 }
                 payload = incompletePayloads[channelId];
                 checkpoint(DecoderState.GET_PAYLOAD);
-            case GET_PAYLOAD:              
+            case GET_PAYLOAD:
                 final byte[] bytes = new byte[Math.min(payload.writableBytes(), chunkSize)];
                 in.readBytes(bytes);
-                payload.writeBytes(bytes);                
+                payload.writeBytes(bytes);
                 checkpoint(DecoderState.GET_HEADER);
                 if(payload.writable()) { // more chunks remain
                     return null;
                 }
                 incompletePayloads[channelId] = null;
-                final RtmpHeader prevHeader = completedHeaders[channelId];                
+                final RtmpHeader prevHeader = completedHeaders[channelId];
                 if (!header.isLarge()) {
                     header.setTime(prevHeader.getTime() + header.getDeltaTime());
                 }
@@ -89,10 +89,10 @@ public class RtmpDecoder extends ReplayingDecoder<DecoderState> {
                 }
                 completedHeaders[channelId] = header;
                 return message;
-            default:               
+            default:
                 throw new RuntimeException("unexpected decoder state: " + state);
         }
-        
+
     }
 
 }

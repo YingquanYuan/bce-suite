@@ -54,7 +54,7 @@ public enum MessageType implements ValueToEnum.IntValue {
     public int intValue() {
         return value;
     }
-    
+
     public int getDefaultChannelId() {
         switch(this) {
             case CHUNK_SIZE:
@@ -62,7 +62,7 @@ public enum MessageType implements ValueToEnum.IntValue {
             case ABORT:
             case BYTES_READ:
             case WINDOW_ACK_SIZE:
-            case SET_PEER_BW:            
+            case SET_PEER_BW:
                 return 2;
             case COMMAND_AMF0:
             case COMMAND_AMF3: // TODO verify

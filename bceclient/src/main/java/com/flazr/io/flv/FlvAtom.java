@@ -33,7 +33,7 @@ public class FlvAtom implements RtmpMessage {
     private static final Logger logger = LoggerFactory.getLogger(FlvAtom.class);
 
     private final RtmpHeader header;
-    private ChannelBuffer data;    
+    private ChannelBuffer data;
 
     public static ChannelBuffer flvHeader() {
         final ChannelBuffer out = ChannelBuffers.buffer(13);
@@ -55,7 +55,7 @@ public class FlvAtom implements RtmpMessage {
 
     public FlvAtom(final BufferReader in) {
         header = readHeader(in.read(11));
-        data = in.read(header.getSize());        
+        data = in.read(header.getSize());
         in.position(in.position() + 4); // prev offset
     }
 
@@ -64,7 +64,7 @@ public class FlvAtom implements RtmpMessage {
         data = in;
     }
 
-    public ChannelBuffer write() {        
+    public ChannelBuffer write() {
         final ChannelBuffer out = ChannelBuffers.buffer(15 + header.getSize());
         out.writeByte((byte) header.getMessageType().intValue());
         out.writeMedium(header.getSize());
@@ -108,7 +108,7 @@ public class FlvAtom implements RtmpMessage {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append(header);
-        sb.append(" data: ").append(data);        
+        sb.append(" data: ").append(data);
         return sb.toString();
     }
 

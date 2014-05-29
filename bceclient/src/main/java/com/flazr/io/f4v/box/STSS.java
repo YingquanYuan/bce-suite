@@ -32,7 +32,7 @@ public class STSS implements Payload {
 
     private static final Logger logger = LoggerFactory.getLogger(STSS.class);
     private List<Integer> sampleNumbers;
-    
+
     public STSS(ChannelBuffer in) {
         read(in);
     }
@@ -68,5 +68,5 @@ public class STSS implements Payload {
         }
         return out;
     }
-    
+
 }

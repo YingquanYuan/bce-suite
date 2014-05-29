@@ -40,7 +40,7 @@ public class FlvWriter implements RtmpWriter {
     private int primaryChannel = -1;
     private int lastLoggedSeconds;
     private final int seekTime;
-    private final long startTime;  
+    private final long startTime;
 
     public FlvWriter(final String fileName) {
         this(0, fileName);
@@ -62,7 +62,7 @@ public class FlvWriter implements RtmpWriter {
             logger.info("opened file for writing: {}", file.getAbsolutePath());
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }        
+        }
     }
 
     @Override
@@ -80,7 +80,7 @@ public class FlvWriter implements RtmpWriter {
         }
         logger.info("finished in {} seconds, media duration: {} seconds (seek time: {})",
                 new Object[]{(System.currentTimeMillis() - startTime) / 1000,
-                (channelTimes[primaryChannel] - seekTime) / 1000, 
+                (channelTimes[primaryChannel] - seekTime) / 1000,
                 seekTime / 1000});
     }
 
@@ -135,5 +135,5 @@ public class FlvWriter implements RtmpWriter {
             throw new RuntimeException(e);
         }
     }
-    
+
 }

@@ -39,15 +39,15 @@ public class LoopedReader implements RtmpReader {
 
     public LoopedReader(final RtmpReader reader, final int loopCount) {
         this.reader = reader;
-        this.loopCount = loopCount;        
+        this.loopCount = loopCount;
         this.metadata = reader.getMetadata();
         double originalDuration = metadata.getDuration();
         if(originalDuration > 0) {
             double durationSeconds = originalDuration * loopCount;
-            metadata.setDuration(durationSeconds);            
+            metadata.setDuration(durationSeconds);
         } else {
             metadata.setDuration(-1);
-        }        
+        }
         logger.info("looped reader init: count {}", loopCount);
     }
 
@@ -85,7 +85,7 @@ public class LoopedReader implements RtmpReader {
     public long seek(long timePosition) {
         if(duration < 0 || timePosition < duration) {
             return reader.seek(timePosition);
-        }                               
+        }
         loopsCompleted = (int) Math.floor(timePosition / duration);
         return reader.seek((long) (timePosition % duration));
     }
@@ -118,8 +118,8 @@ public class LoopedReader implements RtmpReader {
         if(loopsCompleted == 0) {
             timePosition = message.getHeader().getTime();
             return message;
-        }        
-        timePosition = (long) duration * loopsCompleted + message.getHeader().getTime();        
+        }
+        timePosition = (long) duration * loopsCompleted + message.getHeader().getTime();
         message.getHeader().setTime((int) timePosition); // TODO find and cleanup all these (int) casts
         return message;
     }

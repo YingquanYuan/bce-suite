@@ -29,7 +29,7 @@ import java.util.Map;
 import org.jboss.netty.buffer.ChannelBuffer;
 
 public abstract class Command extends AbstractMessage {
-    
+
     protected String name;
     protected int transactionId;
     protected Amf0Object object;
@@ -38,7 +38,7 @@ public abstract class Command extends AbstractMessage {
     public Command(RtmpHeader header, ChannelBuffer in) {
         super(header, in);
     }
-    
+
     public Command(int transactionId, String name, Amf0Object object, Object ... args) {
         this.transactionId = transactionId;
         this.name = name;
@@ -66,11 +66,11 @@ public abstract class Command extends AbstractMessage {
     }
 
     //==========================================================================
-    
+
     public static enum OnStatus {
-        
-        ERROR, STATUS, WARNING;        
-        
+
+        ERROR, STATUS, WARNING;
+
         public static OnStatus parse(final String raw) {
             return OnStatus.valueOf(raw.substring(1).toUpperCase());
         }
@@ -78,7 +78,7 @@ public abstract class Command extends AbstractMessage {
         public String asString() {
             return "_" + this.name().toLowerCase();
         }
-        
+
     }
 
     private static Amf0Object onStatus(final OnStatus level, final String code,
@@ -125,7 +125,7 @@ public abstract class Command extends AbstractMessage {
 
     public static Command connectSuccess(int transactionId) {
         Map<String, Object> object = onStatus(OnStatus.STATUS,
-            "NetConnection.Connect.Success", "Connection succeeded.",            
+            "NetConnection.Connect.Success", "Connection succeeded.",
             pair("fmsVer", "FMS/3,5,1,516"),
             pair("capabilities", 31.0),
             pair("mode", 1.0),
@@ -159,7 +159,7 @@ public abstract class Command extends AbstractMessage {
         }
         Command command = new CommandAmf0("play", null, playArgs.toArray());
         command.header.setChannelId(8);
-        command.header.setStreamId(streamId);        
+        command.header.setStreamId(streamId);
         return command;
     }
 
@@ -201,7 +201,7 @@ public abstract class Command extends AbstractMessage {
         Amf0Object status = onStatus(OnStatus.STATUS,
                 "NetStream.Seek.Notify", "Seeking " + seekTime + " (stream ID: " + streamId + ").",
                 pair("details", playName),
-                pair("clientid", clientId));        
+                pair("clientid", clientId));
         Command command = new CommandAmf0("onStatus", null, status);
         command.header.setChannelId(5);
         command.header.setStreamId(streamId);
@@ -228,7 +228,7 @@ public abstract class Command extends AbstractMessage {
         command.header.setChannelId(5);
         return command;
     }
-    
+
     public static Command publish(int streamId, ClientOptions options) { // TODO
         Command command = new CommandAmf0("publish", null, options.getStreamName(),
                 options.getPublishType().asString());
@@ -236,7 +236,7 @@ public abstract class Command extends AbstractMessage {
         command.header.setStreamId(streamId);
         return command;
     }
-    
+
     private static Command publishStatus(String code, String streamName, String clientId, Pair ... pairs) {
         Amf0Object status = onStatus(OnStatus.STATUS,
                 code, null, streamName,
@@ -264,7 +264,7 @@ public abstract class Command extends AbstractMessage {
     }
 
     public static Command publishBadName(int streamId) {
-        Command command = new CommandAmf0("onStatus", null, 
+        Command command = new CommandAmf0("onStatus", null,
                 onStatus(OnStatus.ERROR, "NetStream.Publish.BadName", "Stream already exists."));
         command.header.setChannelId(8);
         command.header.setStreamId(streamId);
@@ -313,7 +313,7 @@ public abstract class Command extends AbstractMessage {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());        
+        sb.append(super.toString());
         sb.append("name: ").append(name);
         sb.append(", transactionId: ").append(transactionId);
         sb.append(", object: ").append(object);

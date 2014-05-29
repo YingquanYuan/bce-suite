@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class RtmpHeader {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(RtmpHeader.class);
 
     public static enum Type implements ValueToEnum.IntValue {
@@ -37,7 +37,7 @@ public class RtmpHeader {
         private final int value;
 
         private Type(int value) {
-            this.value = value;            
+            this.value = value;
         }
 
         @Override
@@ -60,7 +60,7 @@ public class RtmpHeader {
     private Type headerType;
     private int channelId;
     private int deltaTime;
-    private int time;    
+    private int time;
     private int size;
     private MessageType messageType;
     private int streamId;
@@ -123,7 +123,7 @@ public class RtmpHeader {
                 messageType = prevHeader.messageType;
                 streamId = prevHeader.streamId;
                 break;
-        }        
+        }
     }
 
     public RtmpHeader(MessageType messageType, int time, int size) {
@@ -238,15 +238,15 @@ public class RtmpHeader {
         out.writeBytes(encodeHeaderTypeAndChannel(headerType.value, channelId));
         if(headerType == Type.TINY) {
             return;
-        }     
+        }
         final boolean extendedTime;
         if(headerType == Type.LARGE) {
-            extendedTime = time >= MAX_NORMAL_HEADER_TIME;             
+            extendedTime = time >= MAX_NORMAL_HEADER_TIME;
         } else {
             extendedTime = deltaTime >= MAX_NORMAL_HEADER_TIME;
         }
         if(extendedTime) {
-            out.writeMedium(MAX_NORMAL_HEADER_TIME); 
+            out.writeMedium(MAX_NORMAL_HEADER_TIME);
         } else {                                        // LARGE / MEDIUM / SMALL
             out.writeMedium(headerType == Type.LARGE ? time : deltaTime);
         }
@@ -271,7 +271,7 @@ public class RtmpHeader {
             return new byte[] {(byte) ((headerType << 6) + channelId)};
         } else if (channelId <= 320) {
             return new byte[] {(byte) (headerType << 6), (byte) (channelId - 64)};
-        } else {            
+        } else {
             return new byte[] {(byte) ((headerType << 6) | 1),
                 (byte) ((channelId - 64) & 0xff), (byte) ((channelId - 64) >> 8)};
         }
@@ -282,8 +282,8 @@ public class RtmpHeader {
         StringBuilder sb = new StringBuilder();
         sb.append('[').append(headerType.ordinal());
         sb.append(' ').append(messageType);
-        sb.append(" c").append(channelId);        
-        sb.append(" #").append(streamId);        
+        sb.append(" c").append(channelId);
+        sb.append(" #").append(streamId);
         sb.append(" t").append(time);
         sb.append(" (").append(deltaTime);
         sb.append(") s").append(size);

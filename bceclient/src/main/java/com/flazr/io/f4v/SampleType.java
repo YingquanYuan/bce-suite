@@ -23,7 +23,7 @@ public enum SampleType {
 
     AVC1(true),
     MP4A(false);
-    
+
     private final boolean video;
 
     SampleType(boolean video) {

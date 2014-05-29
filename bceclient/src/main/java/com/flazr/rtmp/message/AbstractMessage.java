@@ -27,7 +27,7 @@ import java.util.Map;
 import org.jboss.netty.buffer.ChannelBuffer;
 
 public abstract class AbstractMessage implements RtmpMessage {
-    
+
     protected final RtmpHeader header;
 
     public AbstractMessage() {

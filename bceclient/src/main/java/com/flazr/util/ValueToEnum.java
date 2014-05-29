@@ -41,11 +41,11 @@ public class ValueToEnum<T extends Enum<T> & ValueToEnum.IntValue> {
             lookupIndexes[i] = enumValues[i].intValue();
         }
         Arrays.sort(lookupIndexes);
-        maxIndex = lookupIndexes[lookupIndexes.length - 1];        
+        maxIndex = lookupIndexes[lookupIndexes.length - 1];
         lookupArray = new Enum[maxIndex + 1]; // use 1 based index
         for (final T t : enumValues) {
             lookupArray[t.intValue()] = t;
-        }        
+        }
     }
 
     public T valueToEnum(final int i) {

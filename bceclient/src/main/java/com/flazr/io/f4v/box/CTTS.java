@@ -44,7 +44,7 @@ public class CTTS implements Payload {
         public int getSampleOffset() {
             return sampleOffset;
         }
-        
+
     }
 
     private List<CTTSRecord> records;

@@ -36,7 +36,7 @@ public class BytesRead extends AbstractMessage {
         super(header, in);
     }
 
-    public BytesRead(long bytesRead) {        
+    public BytesRead(long bytesRead) {
         this.value = (int) bytesRead;
     }
 

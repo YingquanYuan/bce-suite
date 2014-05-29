@@ -151,8 +151,8 @@ public class F4vReader implements RtmpReader {
 
     private RtmpMessage getMessage(final Sample sample) {
         in.position(sample.getFileOffset());
-        final byte[] sampleBytes = in.readBytes(sample.getSize());        
-        final byte[] prefix;        
+        final byte[] sampleBytes = in.readBytes(sample.getSize());
+        final byte[] prefix;
         if(sample.isVideo()) {
             if(sample.isSyncSample()) {
                 prefix = AVC1_PREFIX_KEYFRAME;
@@ -170,7 +170,7 @@ public class F4vReader implements RtmpReader {
     @Override
     public void close() {
         in.close();
-    }   
+    }
 
     public static void main(String[] args) {
         F4vReader reader = new F4vReader("test2.5.mp4");

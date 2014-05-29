@@ -68,7 +68,7 @@ public class STCO implements Payload {
     @Override
     public ChannelBuffer write() {
         ChannelBuffer out = ChannelBuffers.dynamicBuffer();
-        out.writeInt(0); // UI8 version + UI24 flags        
+        out.writeInt(0); // UI8 version + UI24 flags
         out.writeInt(offsets.size());
         for (Long offset : offsets) {
             if(co64) {
@@ -79,5 +79,5 @@ public class STCO implements Payload {
         }
         return out;
     }
-    
+
 }

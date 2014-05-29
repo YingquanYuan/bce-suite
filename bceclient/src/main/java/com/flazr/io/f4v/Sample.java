@@ -142,5 +142,5 @@ public class Sample implements Comparable {
         sb.append("]");
         return sb.toString();
     }
-    
+
 }

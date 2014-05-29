@@ -41,7 +41,7 @@ public abstract class DataMessage extends AbstractMessage {
         super(header, in);
     }
 
-    public DataMessage(final int time, final ChannelBuffer in) {        
+    public DataMessage(final int time, final ChannelBuffer in) {
         header.setTime(time);
         header.setSize(in.readableBytes());
         data = in;
@@ -51,7 +51,7 @@ public abstract class DataMessage extends AbstractMessage {
     public ChannelBuffer encode() {
         if(encoded) {
             // in case used multiple times e.g. broadcast
-            data.resetReaderIndex();            
+            data.resetReaderIndex();
         } else {
             encoded = true;
         }

@@ -137,7 +137,7 @@ public class TrackInfo {
                 chunk.setTrack(this);
                 chunks.add(chunk);
             }
-        }        
+        }
         int chunkIndex = 0;
         int sampleIndex = 0;
         long rawTime = 0;

@@ -82,7 +82,7 @@ public class STSC implements Payload {
             records.add(record);
         }
     }
-    
+
     @Override
     public ChannelBuffer write() {
         ChannelBuffer out = ChannelBuffers.dynamicBuffer();
@@ -95,5 +95,5 @@ public class STSC implements Payload {
         }
         return out;
     }
-    
+
 }

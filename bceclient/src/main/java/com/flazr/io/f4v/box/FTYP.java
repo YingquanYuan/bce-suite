@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 public class FTYP implements Payload {
 
     private static final Logger logger = LoggerFactory.getLogger(FTYP.class);
-    
+
     private byte[] majorBrand;
     private int minorVersion;
     private List<byte[]> compatibleBrands;
@@ -43,12 +43,12 @@ public class FTYP implements Payload {
     @Override
     public void read(ChannelBuffer in) {
         majorBrand = new byte[4];
-        in.readBytes(majorBrand);        
-        minorVersion = in.readInt();        
+        in.readBytes(majorBrand);
+        minorVersion = in.readInt();
         compatibleBrands = new ArrayList<byte[]>();
         while (in.readable()) {
             final byte[] bytes = new byte[4];
-            in.readBytes(bytes);            
+            in.readBytes(bytes);
             compatibleBrands.add(bytes);
         }
     }
@@ -60,7 +60,7 @@ public class FTYP implements Payload {
         out.writeInt(minorVersion);
         for (byte[] bytes : compatibleBrands) {
             out.writeBytes(bytes);
-        }        
+        }
         return out;
     }
 
@@ -79,5 +79,5 @@ public class FTYP implements Payload {
         sb.append(']');
         return super.toString();
     }
-    
+
 }

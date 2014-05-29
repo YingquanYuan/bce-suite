@@ -47,7 +47,7 @@ public class Audio extends DataMessage {
     public Audio(final int time, final ChannelBuffer in) {
         super(time, in);
     }
-    
+
     public static Audio empty() {
         Audio empty = new Audio();
         empty.data = ChannelBuffers.EMPTY_BUFFER;

@@ -44,7 +44,7 @@ public class VideoTag {
     }
 
     public static enum FrameType implements ValueToEnum.IntValue {
-        
+
         KEY(1),
         INTER(2),
         DISPOSABLE_INTER(3),
@@ -71,7 +71,7 @@ public class VideoTag {
     }
 
     public static enum CodecType implements ValueToEnum.IntValue {
-        
+
         JPEG(1),
         H263(2),
         SCREEN(3),

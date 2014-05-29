@@ -30,7 +30,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 public class MVHD implements Payload {
 
     private static final Logger logger = LoggerFactory.getLogger(MVHD.class);
-    
+
     private byte version;
     private byte[] flags;
     private long creationTime;

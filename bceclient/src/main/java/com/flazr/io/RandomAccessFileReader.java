@@ -39,7 +39,7 @@ public class RandomAccessFileReader implements BufferReader {
     }
 
     public RandomAccessFileReader(final File file) {
-        absolutePath = file.getAbsolutePath();        
+        absolutePath = file.getAbsolutePath();
         try {
             in = new RandomAccessFile(file, "r");
             fileSize = in.length();

@@ -65,7 +65,7 @@ public enum BoxType {
     }
 
     public BoxType[] getChildren() {
-        switch(this) {            
+        switch(this) {
             case MOOV: return array(MVHD, TRAK);
             case TRAK: return array(TKHD, MDIA);
             case MDIA: return array(MDHD, HDLR, MINF);
@@ -88,7 +88,7 @@ public enum BoxType {
             case STSZ: return new STSZ(in);
             case STCO: return new STCO(in);
             case CO64: return new STCO(in, true);
-            case STSS: return new STSS(in);            
+            case STSS: return new STSS(in);
             default: return new UnknownPayload(in, this);
         }
     }
@@ -115,5 +115,5 @@ public enum BoxType {
         }
         return "(" + typeString + ")";
     }
-    
+
 }

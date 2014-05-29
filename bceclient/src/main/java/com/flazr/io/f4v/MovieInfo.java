@@ -36,7 +36,7 @@ public class MovieInfo {
 
     private long moovPosition;
     private FTYP ftyp;
-    private MVHD mvhd;    
+    private MVHD mvhd;
     private List<TrackInfo> tracks = new ArrayList<TrackInfo>();
     private List<Sample> samples;
 
@@ -63,7 +63,7 @@ public class MovieInfo {
     }
 
     public MovieInfo(final BufferReader in) {
-        while(in.position() < in.size()) {            
+        while(in.position() < in.size()) {
             Box box = new Box(in, in.size());
             if(box.getType() == BoxType.FTYP) {
                 ftyp = (FTYP) box.getPayload();

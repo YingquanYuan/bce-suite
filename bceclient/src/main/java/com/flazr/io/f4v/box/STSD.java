@@ -100,12 +100,12 @@ public class STSD implements Payload {
         }
         return out;
     }
-    
+
     //==========================================================================
 
     public static class AudioSD implements Payload {
 
-    	private short index;
+        private short index;
         private short innerVersion;
         private short revisionLevel;
         private int vendor;
@@ -127,7 +127,7 @@ public class STSD implements Payload {
         public byte[] getConfigBytes() {
             return mp4Descriptor.getConfigBytes();
         }
-        
+
         @Override
         public void read(ChannelBuffer in) {
             in.skipBytes(6); // reserved
@@ -141,10 +141,10 @@ public class STSD implements Payload {
             packetSize = in.readShort();
             sampleRate = in.readInt();
             if (innerVersion != 0) {
-            	samplesPerPacket = in.readInt();
-            	bytesPerPacket = in.readInt();
-            	bytesPerFrame = in.readInt();
-            	samplesPerFrame = in.readInt();
+                samplesPerPacket = in.readInt();
+                bytesPerPacket = in.readInt();
+                bytesPerFrame = in.readInt();
+                samplesPerFrame = in.readInt();
             }
             mp4Descriptor = new MP4Descriptor(in);
         }
@@ -163,10 +163,10 @@ public class STSD implements Payload {
             out.writeShort(packetSize);
             out.writeInt(sampleRate);
             if (innerVersion != 0) {
-            	out.writeInt(samplesPerPacket);
-            	out.writeInt(bytesPerPacket);
-            	out.writeInt(bytesPerFrame);
-            	out.writeInt(samplesPerFrame);
+                out.writeInt(samplesPerPacket);
+                out.writeInt(bytesPerPacket);
+                out.writeInt(bytesPerFrame);
+                out.writeInt(samplesPerFrame);
             }
             return out;
         }
@@ -287,7 +287,7 @@ public class STSD implements Payload {
             sb.append("[width: ").append(width);
             sb.append(" height: ").append(height);
             sb.append(" h-resolution: ").append(horizontalResolution);
-            sb.append(" v-resolution: ").append(verticalResolution);            
+            sb.append(" v-resolution: ").append(verticalResolution);
             sb.append(" frameCount: ").append(frameCount);
             sb.append(" compressorName: '").append(compressorName);
             sb.append("' depth: ").append(depth);
@@ -297,6 +297,6 @@ public class STSD implements Payload {
             return sb.toString();
         }
 
-    }    
-    
+    }
+
 }

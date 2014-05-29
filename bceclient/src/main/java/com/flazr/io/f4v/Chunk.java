@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chunk implements Comparable {
-    
-    private int sampleDescIndex;    
+
+    private int sampleDescIndex;
     private long fileOffset;
     private List<Sample> samples = new ArrayList<Sample>();
 
@@ -45,7 +45,7 @@ public class Chunk implements Comparable {
 
     public SampleType getSampleType() {
         return sampleType;
-    }    
+    }
 
     //==========================================================================
 
@@ -120,5 +120,5 @@ public class Chunk implements Comparable {
         sb.append("]");
         return sb.toString();
     }
-    
+
 }

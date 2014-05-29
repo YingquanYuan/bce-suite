@@ -27,10 +27,10 @@ import java.util.List;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
-public class CommandAmf0 extends Command {    
+public class CommandAmf0 extends Command {
 
     public CommandAmf0(RtmpHeader header, ChannelBuffer in) {
-        super(header, in);        
+        super(header, in);
     }
 
     public CommandAmf0(int transactionId, String name, Amf0Object object, Object ... args) {
@@ -59,7 +59,7 @@ public class CommandAmf0 extends Command {
     }
 
     @Override
-    public void decode(ChannelBuffer in) {                
+    public void decode(ChannelBuffer in) {
         name = (String) Amf0Value.decode(in);
         transactionId = ((Double) Amf0Value.decode(in)).intValue();
         object = (Amf0Object) Amf0Value.decode(in);

@@ -26,7 +26,7 @@ import java.util.List;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
-public class MetadataAmf0 extends Metadata {        
+public class MetadataAmf0 extends Metadata {
 
     public MetadataAmf0(String name, Object... data) {
         super(name, data);

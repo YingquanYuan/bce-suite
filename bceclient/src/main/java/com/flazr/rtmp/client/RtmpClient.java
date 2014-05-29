@@ -68,7 +68,7 @@ public class RtmpClient {
                     final int tempLine = line;
                     executor.execute(new Runnable() {
                         @Override
-                        public void run() {                            
+                        public void run() {
                             final ClientBootstrap bootstrap = getBootstrap(executor, tempOptions);
                             bootstrap.connect(new InetSocketAddress(tempOptions.getHost(), tempOptions.getPort()));
                             logger.info("line #{}, spawned connection #{}", tempLine + 1, index);
@@ -85,7 +85,7 @@ public class RtmpClient {
         for(int i = 0; i < count; i++) {
             final int index = i + 1;
             executor.execute(new Runnable() {
-                @Override public void run() {                    
+                @Override public void run() {
                     bootstrap.connect(new InetSocketAddress(options.getHost(), options.getPort()));
                     logger.info("spawned connection #{}", index);
                 }
@@ -94,7 +94,7 @@ public class RtmpClient {
         // TODO graceful shutdown
     }
 
-    public static void connect(final ClientOptions options) {  
+    public static void connect(final ClientOptions options) {
         final ClientBootstrap bootstrap = getBootstrap(Executors.newCachedThreadPool(), options);
         final ChannelFuture future = bootstrap.connect(new InetSocketAddress(options.getHost(), options.getPort()));
         future.awaitUninterruptibly();
@@ -102,7 +102,7 @@ public class RtmpClient {
             // future.getCause().printStackTrace();
             logger.error("error creating client connection: {}", future.getCause().getMessage());
         }
-        future.getChannel().getCloseFuture().awaitUninterruptibly(); 
+        future.getChannel().getCloseFuture().awaitUninterruptibly();
         bootstrap.getFactory().releaseExternalResources();
     }
 

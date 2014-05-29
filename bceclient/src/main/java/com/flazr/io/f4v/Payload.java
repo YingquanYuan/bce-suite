@@ -24,7 +24,7 @@ import org.jboss.netty.buffer.ChannelBuffer;
 public interface Payload {
 
     void read(ChannelBuffer in);
-    
+
     ChannelBuffer write();
 
 }

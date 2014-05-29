@@ -45,7 +45,7 @@ public class ServerStream {
         }
 
     }
-    
+
     private final String name;
     private final PublishType publishType;
     private final ChannelGroup subscribers;
@@ -54,7 +54,7 @@ public class ServerStream {
 
     private static final Logger logger = LoggerFactory.getLogger(ServerStream.class);
 
-    public ServerStream(final String rawName, final String typeString) {        
+    public ServerStream(final String rawName, final String typeString) {
         this.name = Utils.trimSlashes(rawName).toLowerCase();
         if(typeString != null) {
             this.publishType = PublishType.parse(typeString); // TODO record, append
@@ -104,7 +104,7 @@ public class ServerStream {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();        
+        final StringBuilder sb = new StringBuilder();
         sb.append("[name: '").append(name);
         sb.append("' type: ").append(publishType);
         sb.append(" publisher: ").append(publisher);

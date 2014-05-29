@@ -24,7 +24,7 @@ import org.jboss.netty.buffer.ChannelBuffer;
 public interface RtmpMessage {
 
     RtmpHeader getHeader();
-    
+
     ChannelBuffer encode();
 
     void decode(ChannelBuffer in);

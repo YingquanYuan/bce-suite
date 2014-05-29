@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Box {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(Box.class);
 
     private final BoxType type;
@@ -39,7 +39,7 @@ public class Box {
     public Box(final BufferReader in, final long endPos) {
         final long boxSize = in.readUnsignedInt();
         final byte[] typeBytes = in.readBytes(4);
-        type = BoxType.parse(new String(typeBytes));        
+        type = BoxType.parse(new String(typeBytes));
         final long payloadSize;
         if (boxSize == 1) { // extended
             final byte[] extBytes = in.readBytes(8);
@@ -54,16 +54,16 @@ public class Box {
         final long childEndPos = fileOffset + payloadSize;
         logger.debug(">> type: {}, payloadSize: {}", type, payloadSize);
         final BoxType[] childBoxes = type.getChildren();
-        if(childBoxes == null) {            
+        if(childBoxes == null) {
             if(type == BoxType.MDAT) {
                 logger.debug("skipping MDAT");
                 in.position(childEndPos);
                 return;
-            }          
+            }
             payload = type.read(in.read((int) payloadSize));
             logger.debug("<< {} payload: {}", type, payload);
             return;
-        }        
+        }
         while(in.position() < childEndPos) {
             if(children == null) {
                 children = new ArrayList<Box>();
@@ -95,7 +95,7 @@ public class Box {
             Arrays.fill(chars, ' ');
             logger.debug("{} recursing {}, payload: {}",
                     new Object[]{String.valueOf(chars), box.type, box.payload});
-        }        
+        }
         if(collect != null && box.getPayload() != null) {
             collect.add(box);
         }
@@ -103,7 +103,7 @@ public class Box {
             for(final Box child : box.getChildren()) {
                 recurse(child, collect, level + 1);
             }
-        }        
+        }
     }
 
     @Override

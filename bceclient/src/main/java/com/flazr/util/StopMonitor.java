@@ -47,7 +47,7 @@ public class StopMonitor extends Thread {
         logger.info("stop monitor thread listening on: {}", socket);
         Socket accept;
         try {
-			accept = socket.accept();
+            accept = socket.accept();
             BufferedReader reader = new BufferedReader(new InputStreamReader(accept.getInputStream()));
             reader.readLine();
             logger.info("stop signal received, stopping server");
@@ -57,5 +57,5 @@ public class StopMonitor extends Thread {
             throw new RuntimeException(e);
         }
     }
-    
+
 }

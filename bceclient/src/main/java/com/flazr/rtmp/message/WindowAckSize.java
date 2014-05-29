@@ -24,13 +24,13 @@ import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
 public class WindowAckSize extends AbstractMessage {
-    
+
     private int value;
-    
+
     public WindowAckSize(RtmpHeader header, ChannelBuffer in) {
         super(header, in);
     }
-    
+
     public WindowAckSize(int value) {
         this.value = value;
     }

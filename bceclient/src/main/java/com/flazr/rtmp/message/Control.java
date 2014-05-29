@@ -32,7 +32,7 @@ public class Control extends AbstractMessage {
     private static final Logger logger = LoggerFactory.getLogger(Control.class);
 
     public static enum Type implements ValueToEnum.IntValue {
-        
+
         STREAM_BEGIN(0),
         STREAM_EOF(1),
         STREAM_DRY(2),
@@ -169,7 +169,7 @@ public class Control extends AbstractMessage {
             case PING_RESPONSE:
                 out.writeInt(time);
                 break;
-            case SWFV_REQUEST:                
+            case SWFV_REQUEST:
                 break;
             case SWFV_RESPONSE:
                 out.writeBytes(bytes);

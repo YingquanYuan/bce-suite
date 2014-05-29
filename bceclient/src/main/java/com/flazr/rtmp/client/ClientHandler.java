@@ -63,20 +63,20 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
 
     private int bytesReadWindow = 2500000;
     private long bytesRead;
-    private long bytesReadLastSent;    
+    private long bytesReadLastSent;
     private int bytesWrittenWindow = 2500000;
-    
+
     private RtmpPublisher publisher;
-    private int streamId;    
+    private int streamId;
 
     public void setSwfvBytes(byte[] swfvBytes) {
-        this.swfvBytes = swfvBytes;        
-        logger.info("set swf verification bytes: {}", Utils.toHex(swfvBytes));        
+        this.swfvBytes = swfvBytes;
+        logger.info("set swf verification bytes: {}", Utils.toHex(swfvBytes));
     }
 
     public ClientHandler(ClientOptions options) {
         this.options = options;
-        transactionToCommandMap = new HashMap<Integer, String>();        
+        transactionToCommandMap = new HashMap<Integer, String>();
     }
 
     private void writeCommandExpectingResult(Channel channel, Command command) {
@@ -110,7 +110,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
         }
         super.channelClosed(ctx, e);
     }
-    
+
     @Override
     public void messageReceived(final ChannelHandlerContext ctx, final MessageEvent me) {
         if(publisher != null && publisher.handle(me)) {
@@ -134,7 +134,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
                         break;
                     case SWFV_REQUEST:
                         if(swfvBytes == null) {
-                            logger.warn("swf verification not initialized!" 
+                            logger.warn("swf verification not initialized!"
                                 + " not sending response, server likely to stop responding / disconnect");
                         } else {
                             Control swfv = Control.swfvResponse(swfvBytes);
@@ -168,7 +168,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
                 break;
             case AUDIO:
             case VIDEO:
-            case AGGREGATE:                
+            case AGGREGATE:
                 writer.write(message);
                 bytesRead += message.getHeader().getSize();
                 if((bytesRead - bytesReadLastSent) > bytesReadWindow) {
@@ -179,7 +179,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
                 break;
             case COMMAND_AMF0:
             case COMMAND_AMF3:
-                Command command = (Command) message;                
+                Command command = (Command) message;
                 String name = command.getName();
                 logger.debug("server command: {}", name);
                 if(name.equals("_result")) {
@@ -190,7 +190,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
                     } else if(resultFor.equals("createStream")) {
                         streamId = ((Double) command.getArg(0)).intValue();
                         logger.debug("streamId to use: {}", streamId);
-                        if(options.getPublishType() != null) { // TODO append, record                            
+                        if(options.getPublishType() != null) { // TODO append, record
                             RtmpReader reader;
                             if(options.getFileToPublish() != null) {
                                 reader = RtmpPublisher.getReader(options.getFileToPublish());
@@ -204,7 +204,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
                                 @Override protected RtmpMessage[] getStopMessages(long timePosition) {
                                     return new RtmpMessage[]{Command.unpublish(streamId)};
                                 }
-                            };                            
+                            };
                             channel.write(Command.publish(streamId, options));
                             return;
                         } else {
@@ -258,13 +258,13 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
                 logger.info("ack from server: {}", message);
                 break;
             case WINDOW_ACK_SIZE:
-                WindowAckSize was = (WindowAckSize) message;                
+                WindowAckSize was = (WindowAckSize) message;
                 if(was.getValue() != bytesReadWindow) {
                     channel.write(SetPeerBw.dynamic(bytesReadWindow));
-                }                
+                }
                 break;
             case SET_PEER_BW:
-                SetPeerBw spb = (SetPeerBw) message;                
+                SetPeerBw spb = (SetPeerBw) message;
                 if(spb.getValue() != bytesWrittenWindow) {
                     channel.write(new WindowAckSize(bytesWrittenWindow));
                 }
@@ -280,6 +280,6 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
         ChannelUtils.exceptionCaught(e);
-    }    
+    }
 
 }
