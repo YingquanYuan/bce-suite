@@ -3,6 +3,8 @@ package bce.server.junit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+
 import bce.java.core.BCEEngine;
 import bce.java.entities.BCECiphertext;
 import bce.java.entities.BCEClientSystem;
@@ -123,7 +125,7 @@ public class TestBCEServer implements BCETestConstants {
 
     }
 
-//	@Test
+//    @Test
     public void testDB() {
         int[] adds = { 5, 6, 7, 10, 11, 12, 13, 14, 15, 16 };
         int nAdds = 10;
@@ -175,8 +177,6 @@ public class TestBCEServer implements BCETestConstants {
         }
 
         PrivateKeyDAO privateKeyDAO = (PrivateKeyDAO) SpringUtil.getBean("privateKeyDAO");
-//		privateKeyDAO.addJDBCBatch(list3, 1, list3.size());
-//		privateKeyDAO.addJDBCBatch(list4, 1 + list3.size(), list4.size());
         privateKeyDAO.addBatch(list3, 1, list3.size());
         privateKeyDAO.addBatch(list4, 1 + list3.size(), list4.size());
         try {

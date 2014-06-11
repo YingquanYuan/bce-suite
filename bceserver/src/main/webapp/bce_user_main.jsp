@@ -16,7 +16,6 @@
 
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.18.custom.css" />
-<!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/> -->
 
 <script language="JavaScript" src="javascript/jquery-1.7.1.js" type="text/javascript"></script>
 <script language="JavaScript" src="javascript/jquery.autosave.js" type="text/javascript"></script>
@@ -35,9 +34,9 @@
 		</div>
 		<div class="topnav_right" style="float: right;">
 			|<a id="logout" onclick="javascript: return clearCookies('JSESSIONID');" href="#">Logout</a>
-			|<a href="http://localhost:8080/bceserver/bce_user_login.jsp">Login</a>
-			|<a href="http://localhost:8080/bceserver/bce_user_register.jsp">Free Register</a>
-			|<a href="http://localhost:8080/bceserver/bce_user_help.jsp">Help</a>|
+			|<a href="./bce_user_login.jsp">Login</a>
+			|<a href="./bce_user_register.jsp">Free Register</a>
+			|<a href="./bce_user_help.jsp">Help</a>|
 		</div>
 		<div style="clear: both;"></div>
 	</div>
@@ -129,7 +128,7 @@
 						<td>
 							<div id="vc_code" style="display: none;">
 								<img id="vcImg" name="vcImg" alt="Authenticode" align="top" src="" />
-								<a id="aRecode" href="javascript: document.getElementById('vcImg').src='ValidateCodeServlet.sl?'+Math.random();" class="font_gray" >change one</a>
+								<a id="aRecode" href="javascript: document.getElementById('vcImg').src='ValidateCodeServlet.sl?'+Math.random(); return false;" class="font_gray" >change one</a>
 							</div>
 						</td>
 					</tr>

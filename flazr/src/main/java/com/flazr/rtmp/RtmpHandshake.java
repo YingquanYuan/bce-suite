@@ -50,7 +50,6 @@ import bce.java.entities.BCESymmetricKey;
 import bce.java.entities.BCESystem;
 import bce.java.io.SecureByteArrayOutputStream;
 import bce.server.dao.BCESystemDAO;
-import bce.server.dao.hibernate.BCESystemHibernateDAO;
 import bce.server.entities.PersistentBCESystem;
 import bce.server.util.BCEObjectConverter;
 import bce.server.util.SpringUtil;

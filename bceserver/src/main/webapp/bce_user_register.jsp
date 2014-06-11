@@ -22,9 +22,9 @@
 		</div>
 		<div class="topnav_right" style="float: right;">
 			<script type="text/javascript"></script>
-			|<a href="http://localhost:8080/bceserver/bce_user_login.jsp">Login</a>
-			|<a href="http://localhost:8080/bceserver/bce_user_register.jsp">Free Register</a>
-			|<a href="http://localhost:8080/bceserver/bce_user_help.jsp">Help</a>|
+			|<a href="./bce_user_login.jsp">Login</a>
+			|<a href="./bce_user_register.jsp">Free Register</a>
+			|<a href="./bce_user_help.jsp">Help</a>|
 		</div>
 		<div style="clear: both;"></div>
 	</div>

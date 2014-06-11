@@ -17,9 +17,9 @@
 		</div>
 		<div class="topnav_right" style="float: right;">
 			<script type="text/javascript"></script>
-			|<a href="http://localhost:8080/bceserver/bce_user_login.jsp">Login</a>
-			|<a href="http://localhost:8080/bceserver/bce_user_register.jsp">Free Register</a>
-			|<a href="http://localhost:8080/bceserver/bce_user_help.jsp">Help</a>|
+			|<a href="./bce_user_login.jsp">Login</a>
+			|<a href="./bce_user_register.jsp">Free Register</a>
+			|<a href="./bce_user_help.jsp">Help</a>|
 		</div>
 		<div style="clear: both;"></div>
 	</div>
@@ -34,10 +34,10 @@
 					<span class="login">How to Use</span>
 				</dt>
 				<dd class="question">
-					1. Register your account in the <a href="http://localhost:8080/bceserver/bce_user_register.jsp">BCE Server Register Page</a>.
+					1. Register your account in the <a href="./bce_user_register.jsp">BCE Server Register Page</a>.
 				</dd>
 				<dd class="question">
-					2. <a href="http://localhost:8080/bceserver/bce_user_login.jsp">Login</a> into the BCE Server with your account.
+					2. <a href="./bce_user_login.jsp">Login</a> into the BCE Server with your account.
 				</dd>
 				<dd class="question">
 					3. If you are the newly registered user, you should apply a new BCE Private Key. If not, you could manage your BCE Private Key.
