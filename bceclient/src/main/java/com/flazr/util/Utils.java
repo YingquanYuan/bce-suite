@@ -59,7 +59,7 @@ public class Utils {
             buf = new char[length * 3];
         } else {
             buf = new char[length * 2];
-        }        
+        }
         for (int i = offset, j = 0; i < offset + length;) {
             final char[] chars = toHexChars(ba[i++]);
             buf[j++] = chars[0];
@@ -97,7 +97,7 @@ public class Utils {
         return raw;
     }
 
-    public static byte[] fromHex(final String s) {        
+    public static byte[] fromHex(final String s) {
         return fromHex(s.replace(" ", "").toCharArray());
     }
 

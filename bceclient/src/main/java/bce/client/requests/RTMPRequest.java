@@ -36,8 +36,6 @@ public abstract class RTMPRequest implements Runnable {
         options = new ClientOptions();
     }
 
-//	public abstract String[] getRequestContent();
-
     private static ClientBootstrap getBootstrap(final Executor executor, ClientOptions options) {
         final ChannelFactory factory = new NioClientSocketChannelFactory(executor, executor);
         final ClientBootstrap bootstrap = new ClientBootstrap(factory);
@@ -57,8 +55,6 @@ public abstract class RTMPRequest implements Runnable {
             return;
         }
         this.handler.handleResponse("Connected to Flazr, transmitting ...".getBytes("UTF-8"));
-//		future.getChannel().getCloseFuture().awaitUninterruptibly();
-//		bootstrap.getFactory().releaseExternalResources();
     }
 
     @Override

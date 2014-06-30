@@ -55,7 +55,7 @@ public class BCEURLProvider {
         Properties prop = new Properties();
         InputStream in = null;
         try {
-            in = BCEURLProvider.class.getResourceAsStream("/BCEURLProvider.properties");
+            in = BCEURLProvider.class.getResourceAsStream("/conf/BCEURLProvider.properties");
             prop.load(in);
             this.loginURL = new URL(prop.getProperty("login"));
             this.processURL = new URL(prop.getProperty("process"));

@@ -79,10 +79,10 @@ public class RtmpHandshake {
     private static final byte[] CLIENT_CONST_CRUD = concat(CLIENT_CONST, RANDOM_CRUD);
 
     private static final byte[] DH_MODULUS_BYTES = Utils.fromHex(
-    	  "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74"
-    	+ "020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F1437"
-    	+ "4FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7ED"
-    	+ "EE386BFB5A899FA5AE9F24117C4B1FE649286651ECE65381FFFFFFFFFFFFFFFF"
+          "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74"
+        + "020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F1437"
+        + "4FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7ED"
+        + "EE386BFB5A899FA5AE9F24117C4B1FE649286651ECE65381FFFFFFFFFFFFFFFF"
     );
 
     private static final BigInteger DH_MODULUS = new BigInteger(1, DH_MODULUS_BYTES);
@@ -281,10 +281,10 @@ public class RtmpHandshake {
             ownPublicKey = temp;
         }
     }
-    
+
     private void initClientCiphers() {
-    	byte[] symmetricKeyBytes = symmetricKey.toBytes();
-    	try {
+        byte[] symmetricKeyBytes = symmetricKey.toBytes();
+        try {
             cipherOut = Cipher.getInstance("RC4");
             cipherOut.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(symmetricKeyBytes, 0, 16, "RC4"));
             cipherIn = Cipher.getInstance("RC4");
@@ -297,7 +297,7 @@ public class RtmpHandshake {
         cipherIn.update(dummyBytes);
         cipherOut.update(dummyBytes);
     }
-    
+
     private void initCiphers() {
         BigInteger otherPublicKeyInt = new BigInteger(1, peerPublicKey);
         try {
@@ -362,7 +362,7 @@ public class RtmpHandshake {
         out.setBytes(digestOffset, ownPartOneDigest);
         return out;
     }
-    
+
     public ChannelBuffer encodeClient1st() {
         ChannelBuffer out = generateRandomHandshake();
         out.setInt(0, 0); // zeros
@@ -374,7 +374,7 @@ public class RtmpHandshake {
             return out;
         }
         logger.debug("creating client part 1, validation type: {}", validationType);
-        
+
         // my customized
         int publicKeyOffset = publicKeyOffset(out, validationType);
         out.setInt(publicKeyOffset, bceSystemId);
@@ -451,7 +451,7 @@ public class RtmpHandshake {
         in.getBytes(publicKeyOffset, peerPublicKey);
         initCiphers();
     }
-    
+
     private BCECiphertext ciphertext;
     private BCESymmetricKey symmetricKey;
     private byte[] bceCiphertextBytes;
@@ -511,29 +511,29 @@ public class RtmpHandshake {
         SecureByteArrayInputStream inBuffer = new SecureByteArrayInputStream(bceCiphertextBytes);
         ciphertext = new BCECiphertext();
         try {
-			ciphertext.readExternal(inBuffer);
-			inBuffer.close();
-			decrypt();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+            ciphertext.readExternal(inBuffer);
+            inBuffer.close();
+            decrypt();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         initClientCiphers();
     }
-    
+
     private void decrypt() throws IOException{
-    	system = new BCEClientSystem();
+        system = new BCEClientSystem();
 //    	system.setGlobalSysParamsURI("/home/robins/桌面/毕业设计/Data/globalsystem.param");
-    	system.setGlobalSysParamsURI(paramsFileName);
+        system.setGlobalSysParamsURI(paramsFileName);
 //    	File pkFile = new File("/home/robins/桌面/毕业设计/Data/BCEPK-2.key");
-    	File pkFile = new File(privateKeyFileName);
-		FileInputStream in = new FileInputStream(pkFile);
-		byte[] temp = new byte[316];
-		in.read(temp, 0, 316);
-		privateKey = BCEPrivateKey.fromBytes(temp);
-		in.close();
-    	symmetricKey = BCEEngine.decrypt(system, privateKey, ciphertext);
+        File pkFile = new File(privateKeyFileName);
+        FileInputStream in = new FileInputStream(pkFile);
+        byte[] temp = new byte[316];
+        in.read(temp, 0, 316);
+        privateKey = BCEPrivateKey.fromBytes(temp);
+        in.close();
+        symmetricKey = BCEEngine.decrypt(system, privateKey, ciphertext);
     }
 
     private void decodeServer2(ChannelBuffer in) {

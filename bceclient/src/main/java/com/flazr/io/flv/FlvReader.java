@@ -35,17 +35,17 @@ import org.slf4j.LoggerFactory;
 public class FlvReader implements RtmpReader {
 
     private static final Logger logger = LoggerFactory.getLogger(FlvReader.class);
-    
+
     private final BufferReader in;
     private final long mediaStartPosition;
     private final Metadata metadata;
-    private int aggregateDuration;    
+    private int aggregateDuration;
 
     public FlvReader(final String path) {
         in = new FileChannelReader(path);
         in.position(13); // skip flv header
         final RtmpMessage metadataAtom = next();
-        final RtmpMessage metadataTemp = 
+        final RtmpMessage metadataTemp =
                 MessageType.decode(metadataAtom.getHeader(), metadataAtom.encode());
         if(metadataTemp.getHeader().isMetadata()) {
             metadata = (Metadata) metadataTemp;
@@ -108,11 +108,11 @@ public class FlvReader implements RtmpReader {
                 throw new RuntimeException(e);
             }
         }
-        final long start = getTimePosition();        
+        final long start = getTimePosition();
         if(time > start) {
             while(hasNext()) {
                 final RtmpMessage cursor = next();
-                if(cursor.getHeader().getTime() >= time) {                    
+                if(cursor.getHeader().getTime() >= time) {
                     break;
                 }
             }
@@ -145,16 +145,16 @@ public class FlvReader implements RtmpReader {
     }
 
     @Override
-    public boolean hasNext() {        
+    public boolean hasNext() {
         return in.position() < in.size();
     }
 
 
-    protected boolean hasPrev() {        
+    protected boolean hasPrev() {
         return in.position() > mediaStartPosition;
     }
 
-    protected RtmpMessage prev() {        
+    protected RtmpMessage prev() {
         final long oldPos = in.position();
         in.position(oldPos - 4);
         final long newPos = oldPos - 4 - in.readInt();
