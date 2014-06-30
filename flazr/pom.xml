@@ -4,7 +4,7 @@
   <groupId>com.flazr</groupId>
   <artifactId>flazr</artifactId>
   <version>1.0.0</version>
-  <name>Flazr</name>
+  <name>Flazr - BCE Streaming Media Server</name>
   <description>A Java Implementation of RTMP Protocol For Multimedia Streaming</description>
 
   <properties>
