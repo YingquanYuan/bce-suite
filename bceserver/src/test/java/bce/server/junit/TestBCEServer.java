@@ -147,7 +147,7 @@ public class TestBCEServer implements BCETestConstants {
         system.setChangeDecrProdBatchSize(CHANGE_DECR_PROD_BATCH_SIZE);
         BCETransientKey transientKey = BCEEngine.setup(system);
 
-        System.out.println(transientKey);
+//        System.out.println(transientKey);
 ///////////////////////////////////////init settings///////////////////////////////////////////////////////////////
 
 
