@@ -39,10 +39,10 @@ import com.flazr.io.flv.FlvReader;
 public abstract class RtmpPublisher {
 
     private static final Logger logger = LoggerFactory.getLogger(RtmpPublisher.class);
-    
+
     static {
-		TIMER = new HashedWheelTimer(RtmpConfig.TIMER_TICK_SIZE, TimeUnit.MILLISECONDS);
-	}
+        TIMER = new HashedWheelTimer(RtmpConfig.TIMER_TICK_SIZE, TimeUnit.MILLISECONDS);
+    }
 
     private final Timer timer;
     private final int timerTickSize;
@@ -51,16 +51,16 @@ public abstract class RtmpPublisher {
 
     private final RtmpReader reader;
     private int streamId;
-    private long startTime;    
+    private long startTime;
     private long seekTime;
     private long timePosition;
-    private int currentConversationId;    
+    private int currentConversationId;
     private int playLength = -1;
     private boolean paused;
     private int bufferDuration;
-    
+
     public static final Timer TIMER;
-    
+
     public static class Event {
 
         private final int conversationId;
@@ -75,7 +75,7 @@ public abstract class RtmpPublisher {
 
     }
 
-    public RtmpPublisher(final RtmpReader reader, final int streamId, final int bufferDuration, 
+    public RtmpPublisher(final RtmpReader reader, final int streamId, final int bufferDuration,
             boolean useSharedTimer, boolean aggregateModeEnabled) {
         this.aggregateModeEnabled = aggregateModeEnabled;
         this.usingSharedTimer = useSharedTimer;
@@ -113,7 +113,7 @@ public abstract class RtmpPublisher {
         this.bufferDuration = bufferDuration;
     }
 
-    public boolean handle(final MessageEvent me) {        
+    public boolean handle(final MessageEvent me) {
         if(me.getMessage() instanceof Event) {
             final Event pe = (Event) me.getMessage();
             if(pe.conversationId != currentConversationId) {
@@ -135,7 +135,7 @@ public abstract class RtmpPublisher {
     public void start(final Channel channel, final int seekTimeRequested, final RtmpMessage ... messages) {
         paused = false;
         currentConversationId++;
-        startTime = System.currentTimeMillis();        
+        startTime = System.currentTimeMillis();
         if(seekTimeRequested >= 0) {
             seekTime = reader.seek(seekTimeRequested);
         } else {
@@ -185,7 +185,7 @@ public abstract class RtmpPublisher {
             reader.setAggregateDuration((int) clientBuffer);
         } else {
             reader.setAggregateDuration(0);
-        }        
+        }
         final RtmpHeader header = message.getHeader();
         final double compensationFactor = clientBuffer / (bufferDuration + timerTickSize);
         final long delay = (long) ((header.getTime() - timePosition) * compensationFactor);
@@ -201,7 +201,7 @@ public abstract class RtmpPublisher {
                 final long completedIn = System.currentTimeMillis() - writeTime;
                 if(completedIn > 2000) {
                     logger.warn("channel busy? time taken to write last message: {}", completedIn);
-                }                
+                }
                 final long delayToUse = clientBuffer > 0 ? delay - completedIn : 0;
                 fireNext(channel, delayToUse);
             }
@@ -247,7 +247,7 @@ public abstract class RtmpPublisher {
         if(!usingSharedTimer) {
             timer.stop();
         }
-        reader.close();        
+        reader.close();
     }
 
     protected abstract RtmpMessage[] getStopMessages(long timePosition);

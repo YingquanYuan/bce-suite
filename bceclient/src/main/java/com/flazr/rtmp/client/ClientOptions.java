@@ -59,7 +59,7 @@ public class ClientOptions {
     private String fileToPublish;
     private RtmpReader readerToPublish;
     private RtmpWriter writerToSave;
-    private String saveAs;    
+    private String saveAs;
     private boolean rtmpe;
     private Map<String, Object> params;
     private Object[] args;
@@ -78,30 +78,30 @@ public class ClientOptions {
     private String paramsFileName;
 
     public int getBceSystemId() {
-		return bceSystemId;
-	}
+        return bceSystemId;
+    }
 
-	public void setBceSystemId(int bceSystemId) {
-		this.bceSystemId = bceSystemId;
-	}
+    public void setBceSystemId(int bceSystemId) {
+        this.bceSystemId = bceSystemId;
+    }
 
-	public String getPrivateKeyFileName() {
-		return privateKeyFileName;
-	}
+    public String getPrivateKeyFileName() {
+        return privateKeyFileName;
+    }
 
-	public void setPrivateKeyFileName(String privateKeyFileName) {
-		this.privateKeyFileName = privateKeyFileName;
-	}
+    public void setPrivateKeyFileName(String privateKeyFileName) {
+        this.privateKeyFileName = privateKeyFileName;
+    }
 
-	public String getParamsFileName() {
-		return paramsFileName;
-	}
+    public String getParamsFileName() {
+        return paramsFileName;
+    }
 
-	public void setParamsFileName(String paramsFileName) {
-		this.paramsFileName = paramsFileName;
-	}
+    public void setParamsFileName(String paramsFileName) {
+        this.paramsFileName = paramsFileName;
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         ClientOptions co = new ClientOptions();
         co.parseCli(new String[]{
             "-version", "00000000", "-live", "-app", "oflaDemo", "-buffer", "0",
@@ -123,7 +123,7 @@ public class ClientOptions {
         this.appName = appName;
         this.streamName = streamName;
         this.saveAs = saveAs;
-        this.rtmpe = rtmpe;        
+        this.rtmpe = rtmpe;
         if(swfFile != null) {
             initSwfVerification(swfFile);
         }
@@ -166,23 +166,23 @@ public class ClientOptions {
         rtmpe = protocol.equalsIgnoreCase("rtmpe");
         if(rtmpe) {
             logger.debug("rtmpe requested, will use encryption");
-        }        
+        }
     }
-    
+
     public void publishLive() {
-        publishType = ServerStream.PublishType.LIVE;        
+        publishType = ServerStream.PublishType.LIVE;
     }
-    
+
     public void publishRecord() {
-        publishType = ServerStream.PublishType.RECORD;        
+        publishType = ServerStream.PublishType.RECORD;
     }
-    
+
     public void publishAppend() {
-        publishType = ServerStream.PublishType.APPEND;        
+        publishType = ServerStream.PublishType.APPEND;
     }
 
     //==========================================================================
-    
+
     protected static Options getCliOptions() {
         final Options options = new Options();
         options.addOption(new Option("help", "print this message"));
@@ -236,7 +236,7 @@ public class ClientOptions {
             }
             if(line.hasOption("port")) {
                 port = Integer.valueOf(line.getOptionValue("port"));
-            }  
+            }
             if(line.hasOption("app")) {
                 appName = line.getOptionValue("app");
             }
@@ -413,7 +413,7 @@ public class ClientOptions {
         swfHash = hash;
         logger.info("swf verification initialized - size: {}, hash: {}", swfSize, Utils.toHex(swfHash));
     }
-    
+
     public void putParam(String key, Object value) {
         if(params == null) {
             params = new LinkedHashMap<String, Object>();
@@ -498,10 +498,10 @@ public class ClientOptions {
     }
 
     public void setRtmpe(boolean rtmpe) {
-		this.rtmpe = rtmpe;
-	}
+        this.rtmpe = rtmpe;
+    }
 
-	public byte[] getSwfHash() {
+    public byte[] getSwfHash() {
         return swfHash;
     }
 
@@ -565,5 +565,5 @@ public class ClientOptions {
         sb.append(']');
         return sb.toString();
     }
-    
+
 }

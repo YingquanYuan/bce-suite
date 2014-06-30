@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface BCEHandler {
 
-	void handleResponse(byte[] responseData) throws IOException;
+    void handleResponse(byte[] responseData) throws IOException;
 }

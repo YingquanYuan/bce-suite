@@ -412,6 +412,7 @@ public class PrivateKeyHibernateDAO implements PrivateKeyDAO {
         for (int i = 0; i < length; i++) {
             aesKeyList.add(AESKeySupport.generateKey());
         }
+
         AESKeyStoreThread thread = new AESKeyStoreThread(aesKeyList, offset, length);
         thread.start();
 
@@ -653,8 +654,9 @@ final class AESKeyStoreThread extends Thread {
     public void run() {
         AESKeyDAO dao = (AESKeyDAO) SpringUtil.getBean("aesKeyDAO");
         dao.add(aesKeyList, offset, length);
-        for (byte[] bs : this.aesKeyList) {
-            Arrays.fill(bs, (byte) 0);
-        }
+        // TODO This block will generate bugs but need an alternative to ensure the mem security
+//        for (byte[] bs : this.aesKeyList) {
+//            Arrays.fill(bs, (byte) 0);
+//        }
     }
 }

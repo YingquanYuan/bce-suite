@@ -19,6 +19,7 @@
         <module>jbce</module>
         <module>bceserver</module>
         <module>bceclient</module>
+        <module>flazr</module>
 
     </modules>
 

@@ -49,8 +49,8 @@ public class ClientHandshakeHandler extends FrameDecoder implements ChannelDowns
      * 第一次握手，客户端发起连接
      */
     @Override
-    public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {        
-        logger.info("connected, starting handshake");                
+    public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
+        logger.info("connected, starting handshake");
         Channels.write(ctx, e.getFuture(), handshake.encodeClient0());
         //***
 //        Channels.write(ctx, e.getFuture(), handshake.encodeClient1());
@@ -58,7 +58,7 @@ public class ClientHandshakeHandler extends FrameDecoder implements ChannelDowns
     }
 
     @Override
-    protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer in) {               
+    protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer in) {
         if(in.readableBytes() < 1 + RtmpHandshake.HANDSHAKE_SIZE * 2) {
             return null;
         }
