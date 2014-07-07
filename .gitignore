@@ -13,3 +13,4 @@
 *.jnilib
 .cproject
 tmp/
+*.flv
