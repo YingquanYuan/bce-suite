@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "Starting up script for flazr"

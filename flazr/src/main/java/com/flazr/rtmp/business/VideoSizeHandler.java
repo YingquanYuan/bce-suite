@@ -8,6 +8,8 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.flazr.rtmp.RtmpConfig;
+
 import bce.jni.utils.BCEUtils;
 
 public class VideoSizeHandler extends Thread {
@@ -25,7 +27,7 @@ public class VideoSizeHandler extends Thread {
 
     private static final long getVideoFileSize(String videoName) {
         final String videoFileName = videoName;
-        File root = new File("home/apps/vod/");
+        File root = new File(RtmpConfig.SERVER_HOME_DIR + "/apps/vod");
         File[] files = null;
         if (root.isDirectory()) {
             files = root.listFiles(new FilenameFilter() {

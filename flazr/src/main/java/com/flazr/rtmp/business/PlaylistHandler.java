@@ -8,6 +8,8 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.flazr.rtmp.RtmpConfig;
+
 public class PlaylistHandler extends Thread {
 
     private static final Logger logger = LoggerFactory.getLogger(PlaylistHandler.class);
@@ -41,7 +43,7 @@ public class PlaylistHandler extends Thread {
     public void run() {
         try {
             logger.info("tramsmitting playlist to bceserver ...");
-            String fileList = getAllFileName("home/apps/vod/");
+            String fileList = getAllFileName(RtmpConfig.SERVER_HOME_DIR + "/apps/vod");
             OutputStream out = handlerSocket.getOutputStream();
             out.write(fileList.getBytes("UTF-8"));
             out.flush();

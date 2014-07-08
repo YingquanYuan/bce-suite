@@ -43,6 +43,7 @@ public class RtmpConfig {
     public static int PROXY_STOP_PORT = 7999;
     public static String PROXY_REMOTE_HOST = "127.0.0.1";
     public static int PROXY_REMOTE_PORT = 1935;
+    public static int BUSINESS_PORT = 30000;
 
     public static void configureServer() {
         configure(Type.SERVER);

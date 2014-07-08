@@ -51,7 +51,7 @@ public class RtmpServer {
         bootstrap.bind(socketAddress);
         logger.info("server started, listening on: {}", socketAddress);
 
-        final BusinessMonitor bMonitor = new BusinessMonitor(30000);
+        final BusinessMonitor bMonitor = new BusinessMonitor(RtmpConfig.BUSINESS_PORT);
         bMonitor.start();
 
         final Thread monitor = new StopMonitor(RtmpConfig.SERVER_STOP_PORT);
