@@ -1,0 +1,12 @@
+#!/bin/bash
+
+INSTALL_DIR=/usr/local/servers/flazr
+SERVER_HOME=/opt/flazr/home
+APPS=apps
+VOD=vod
+
+# create flazr install directory
+mkdir -p $INSTALL_DIR
+
+# create flazr server directory
+mkdir -p $SERVER_HOME/$APPS/$VOD
