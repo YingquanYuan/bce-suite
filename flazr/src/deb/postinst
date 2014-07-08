@@ -1,3 +1,9 @@
 #!/bin/bash
 
-echo "Post Inst"
+echo "Running postinst script"
+
+SERVER_HOME=/opt/flazr/home
+APPS=apps
+VOD=vod
+
+chown -R ubuntu:ubuntu $SERVER_HOME/$APPS/$VOD
