@@ -4,9 +4,11 @@ INSTALL_DIR=/usr/local/servers/flazr
 SERVER_HOME=/opt/flazr/home
 APPS=apps
 VOD=vod
+LOGS=logs
 
 # create flazr install directory
 mkdir -p $INSTALL_DIR
 
-# create flazr server directory
+# create flazr server home directory
 mkdir -p $SERVER_HOME/$APPS/$VOD
+mkdir -p $SERVER_HOME/$LOGS

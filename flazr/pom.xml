@@ -40,13 +40,8 @@
     <!-- slf4j -->
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.6</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.6.2</version>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.7</version>
     </dependency>
 
     <!-- apache libraries -->
@@ -60,6 +55,12 @@
       <artifactId>commons-httpclient</artifactId>
       <version>3.1</version>
     </dependency>
+    <dependency>
+      <groupId>commons-daemon</groupId>
+      <artifactId>commons-daemon</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+
 
     <!-- Spring 3 Dependencies -->
     <dependency>
