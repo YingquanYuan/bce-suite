@@ -1,3 +1,36 @@
 #!/bin/bash
 
-echo "Starting up script for flazr"
+EXEC=/usr/bin/jsvc
+CLASS_PATH=/usr/share/java/commons-daemon.jar:/usr/local/servers/flazr/flazr-jar-with-dependencies.jar
+MAIN_CLASS=com.flazr.rtmp.server.RtmpService
+USER=flazr
+PID=/opt/flazr/run/flazr.pid
+LOG_OUT=/opt/flazr/logs/flazr.out
+LOG_ERR=/opt/flazr/logs/flazr.err
+export JAVA_HOME=`update-alternatives --query java | grep Best: | cut -f2 -d':' | cut -f2 -d' ' | sed -e 's/\/bin\/java//'`
+
+flazr_jsvc()
+{
+    $EXEC -home $JAVA_HOME -cp $CLASS_PATH -user $USER -outfile $LOG_OUT -errfile $LOG_ERR -pidfile $PID $1 $MAIN_CLASS
+}
+
+case "$1" in
+    start)
+        flazr_jsvc
+        ;;
+    stop)
+        flazr_jsvc "-stop"
+        ;;
+    restart)
+        if [ -f "$PID" ]; then
+            flazr_jsvc "-stop"
+            flazr_jsvc
+        else
+            echo "Flazr streaming server is not running, will do nothing"
+        fi
+        ;;
+    *)
+        echo "Usage: /etc/init.d/flazr { start | stop | restart | status }" >&2
+        exit 3
+        ;;
+esac

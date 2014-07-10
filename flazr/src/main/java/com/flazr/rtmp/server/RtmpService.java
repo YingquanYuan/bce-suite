@@ -23,9 +23,9 @@ import com.flazr.rtmp.RtmpConfig;
 import com.flazr.util.BusinessMonitor;
 import com.flazr.util.StopMonitor;
 
-public class RtmpServer1 implements Daemon {
+public class RtmpService implements Daemon {
 
-    private static final Logger logger = LoggerFactory.getLogger(RtmpServer1.class);
+    private static final Logger logger = LoggerFactory.getLogger(RtmpService.class);
 
     static {
         RtmpConfig.configureServer();
@@ -38,52 +38,63 @@ public class RtmpServer1 implements Daemon {
     protected static final Map<String, ServerApplication> APPLICATIONS;
     public static final Timer TIMER;
 
-    public static void main(String[] args) throws Exception {
+    private ChannelFactory factory;
+    private ServerBootstrap bootstrap;
+    private InetSocketAddress socketAddress;
+    private BusinessMonitor businessMonitor;
+    private Thread stopMonitor;
 
-        final ChannelFactory factory = new NioServerSocketChannelFactory(
+    @Override
+    public void init(DaemonContext arg0) throws Exception {
+        factory = new NioServerSocketChannelFactory(
                 Executors.newCachedThreadPool(),
                 Executors.newCachedThreadPool());
 
-        final ServerBootstrap bootstrap = new ServerBootstrap(factory);
-
+        bootstrap = new ServerBootstrap(factory);
         bootstrap.setPipelineFactory(new ServerPipelineFactory());
         bootstrap.setOption("child.tcpNoDelay", true);
         bootstrap.setOption("child.keepAlive", true);
-        final InetSocketAddress socketAddress = new InetSocketAddress(RtmpConfig.SERVER_PORT);
+        socketAddress = new InetSocketAddress(RtmpConfig.SERVER_PORT);
+
+        businessMonitor = new BusinessMonitor(RtmpConfig.BUSINESS_PORT);
+        stopMonitor = new StopMonitor(RtmpConfig.SERVER_STOP_PORT);
+    }
+
+    @Override
+    public void start() throws Exception {
         bootstrap.bind(socketAddress);
         logger.info("server started, listening on: {}", socketAddress);
+        businessMonitor.start();
+        stopMonitor.start();
+    }
 
-        final BusinessMonitor bMonitor = new BusinessMonitor(RtmpConfig.BUSINESS_PORT);
-        bMonitor.start();
-
-        final Thread monitor = new StopMonitor(RtmpConfig.SERVER_STOP_PORT);
-        monitor.start();
-        monitor.join();
-
+    @Override
+    public void stop() throws Exception {
         TIMER.stop();
-        bMonitor.setRunning(false);
+        businessMonitor.setRunning(false);
         final ChannelGroupFuture future = CHANNELS.close();
         logger.info("closing channels");
         future.awaitUninterruptibly();
-        logger.info("releasing resources");
-        factory.releaseExternalResources();
         logger.info("server stopped");
     }
 
     @Override
     public void destroy() {
+        factory.releaseExternalResources();
+        logger.info("released resources");
     }
 
-    @Override
-    public void init(DaemonContext arg0) throws Exception {
+    private void waitForStopSignal() throws Exception {
+        this.stopMonitor.join();
     }
 
-    @Override
-    public void start() throws Exception {
-    }
-
-    @Override
-    public void stop() throws Exception {
+    public static void main(String[] args) throws Exception {
+        RtmpService server = new RtmpService();
+        server.init(null);
+        server.start();
+        server.waitForStopSignal();
+        server.stop();
+        server.destroy();
     }
 
 }
