@@ -2,6 +2,20 @@
 
 echo "Running postinst script"
 
+INSTALL_DIR=/usr/local/servers/flazr
 SERVER_HOME=/opt/flazr/home
 APPS=apps
 VOD=vod
+LOGS=logs
+
+# create flazr install directory
+mkdir -p $INSTALL_DIR
+
+# create flazr server home directory
+mkdir -p $SERVER_HOME/$APPS/$VOD
+mkdir -p $SERVER_HOME/$LOGS
+
+# add flazr user and chown
+id -u flazr &>/dev/null || adduser flazr --shell /bin/bash --gecos 'flazr' --disabled-password --home /home/flazr
+chown -R flazr:flazr /usr/local/servers/flazr
+chown -R flazr:flazr /opt/flazr
