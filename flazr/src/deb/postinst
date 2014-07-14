@@ -1,0 +1,27 @@
+#!/bin/bash
+
+echo "Running postinst script"
+
+INSSERV=/usr/lib/insserv/insserv
+
+INSTALL_DIR=/usr/local/servers/flazr
+APPS_DIR=/opt/flazr
+LOG_DIR=$APPS_DIR/logs
+RUN_DIR=$APPS_DIR/run
+VOD_DIR=$APPS_DIR/home/apps/vod
+
+# create flazr install directory
+mkdir -p $INSTALL_DIR
+
+# create flazr application directories
+mkdir -p $APPS_DIR
+mkdir -p $VOD_DIR
+mkdir $LOG_DIR $RUN_DIR
+
+# add flazr user if not exists and chown
+id -u flazr &>/dev/null || adduser flazr --shell /bin/bash --gecos 'flazr' --disabled-password --home /home/flazr
+chown -R flazr:flazr /usr/local/servers/flazr
+chown -R flazr:flazr /opt/flazr
+
+# insserv start up script
+$INSSERV /etc/init.d/flazr

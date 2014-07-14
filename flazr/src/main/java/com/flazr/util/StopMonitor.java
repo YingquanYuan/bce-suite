@@ -36,7 +36,7 @@ public class StopMonitor extends Thread {
         setDaemon(true);
         setName("StopMonitor");
         try {
-            socket = new ServerSocket(port, 1, InetAddress.getByName("127.0.0.1"));
+            socket = new ServerSocket(port, 1);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
