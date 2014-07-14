@@ -5,4 +5,4 @@ Priority: optional
 Architecture: all
 Maintainer: Yingquan Yuan <yingq.yuan@gmail.com>
 Description: A Java Implementation of RTMP Protocol For Multimedia Streaming with broadcast encryption feature
-Depends:
+Depends: jsvc (= 1.0.8-1)
