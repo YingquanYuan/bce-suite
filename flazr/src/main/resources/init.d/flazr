@@ -29,6 +29,14 @@ case "$1" in
             echo "Flazr streaming server is not running, will do nothing"
         fi
         ;;
+    status)
+        pids=(`ps aux | grep flazr | grep -v grep | grep -v status | awk '{ print $2 }'`)
+        if [ ${#pids[@]} -eq 0 ]; then
+            echo "Flazr server is not running"
+        else
+            echo "Flazr server is running, pids: ${pids[@]}"
+        fi
+        ;;
     *)
         echo "Usage: /etc/init.d/flazr { start | stop | restart | status }" >&2
         exit 3
