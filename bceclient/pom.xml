@@ -8,10 +8,17 @@
   <name>BCE Streaming Media Client</name>
   <description>The Streaming Media Client of the BCE Web Server and BCE Streaming Server</description>
 
+  <repositories>
+    <repository>
+      <id>swt-repo</id>
+      <url>https://swt-repo.googlecode.com/svn/repo/</url>
+    </repository>
+  </repositories>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <swt.version>3.3.0-v3346</swt.version>
+    <swt.version>4.3.2</swt.version>
   </properties>
 
   <dependencies>
@@ -80,8 +87,8 @@
         </os>
       </activation>
       <properties>
-        <swt.groupId>org.eclipse.swt.gtk.linux</swt.groupId>
-        <swt.artifactId>x86</swt.artifactId>
+        <swt.groupId>org.eclipse.swt</swt.groupId>
+        <swt.artifactId>org.eclipse.swt.gtk.linux.x86_64</swt.artifactId>
       </properties>
     </profile>
 
@@ -94,8 +101,8 @@
         </os>
       </activation>
       <properties>
-        <swt.groupId>org.eclipse.swt.carbon</swt.groupId>
-        <swt.artifactId>macosx</swt.artifactId>
+        <swt.groupId>org.eclipse.swt</swt.groupId>
+        <swt.artifactId>org.eclipse.swt.cocoa.macosx.x86_64</swt.artifactId>
       </properties>
     </profile>
   </profiles>

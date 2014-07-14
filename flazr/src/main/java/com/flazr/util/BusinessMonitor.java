@@ -27,7 +27,7 @@ public class BusinessMonitor extends Thread {
         setDaemon(true);
         setName("BusinessMonitor");
         try {
-            socket = new ServerSocket(port, 30, InetAddress.getByName("127.0.0.1"));
+            socket = new ServerSocket(port, 30);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

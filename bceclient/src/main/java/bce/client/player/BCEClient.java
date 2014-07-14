@@ -318,6 +318,8 @@ public class BCEClient {
         btnPlay = new Button(compositeUsr, SWT.PUSH);
         btnPlay.setBounds(10, 179, 90, 29);
         btnPlay.setText("Play");
+        btnPlay.setEnabled(false);
+        /**
         btnPlay.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -338,10 +340,13 @@ public class BCEClient {
                 widgetSelected(e);
             }
         });
+        */
 
         btnStop = new Button(compositeUsr, SWT.PUSH);
         btnStop.setBounds(104, 179, 87, 29);
         btnStop.setText("Stop");
+        btnStop.setEnabled(false);
+        /**
         btnStop.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -354,6 +359,7 @@ public class BCEClient {
                 widgetSelected(e);
             }
         });
+        */
 
         btnChooseKey = new Button(compositeUsr, SWT.PUSH);
         btnChooseKey.setBounds(10, 109, 90, 29);
@@ -363,14 +369,14 @@ public class BCEClient {
             public void widgetSelected(SelectionEvent e) {
                 FileDialog privateKeyDlg = new FileDialog(shell, SWT.OPEN);
                 privateKeyDlg.setText("Select Private Key");
-                privateKeyDlg.setFilterPath("/home/robins/桌面/密钥与参数文件");
+                privateKeyDlg.setFilterPath("~");
                 privateKeyDlg.setFilterExtensions(new String[] {"*.key"});
                 privateKeyFileName = privateKeyDlg.open();
                 logger.info("chosen privateKey file, name: {}", privateKeyFileName);
 
                 FileDialog paramsDlg = new FileDialog(shell, SWT.OPEN);
                 paramsDlg.setText("Select Private Key");
-                paramsDlg.setFilterPath("/home/robins/桌面/密钥与参数文件");
+                paramsDlg.setFilterPath("~");
                 paramsDlg.setFilterExtensions(new String[] {"*.param"});
                 paramsFileName = paramsDlg.open();
                 logger.info("chosen curve params file, name: {}", paramsFileName);
@@ -397,7 +403,7 @@ public class BCEClient {
                 }, provider.getLoginURL(), sessionId, videoName);
                 display.asyncExec(request);
 
-                localVideoName = new StringBuffer().append("/home/robins/").append(videoName);
+                localVideoName = new StringBuffer().append("/tmp/").append(videoName);
                 remoteVideoName = videoName;
                 lblStatus.setText("Info: " + videoName + " chosen");
             }

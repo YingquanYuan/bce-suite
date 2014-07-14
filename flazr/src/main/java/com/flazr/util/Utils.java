@@ -221,10 +221,8 @@ public class Utils {
     + "GNU Lesser General Public License along with Flazr.\n"
     + "If not, see <http://www.gnu.org/licenses/>\n";
 
-    private static final String COPYRIGHT = "Welcome to Flazr, the streaming media server center.\n";
-
     public static void printlnCopyrightNotice() {
-        System.err.println(COPYRIGHT);
+        System.err.println(COPYRIGHT_NOTICE);
     }
 
     public static String trimSlashes(final String raw) {
