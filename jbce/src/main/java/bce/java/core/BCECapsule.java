@@ -3,51 +3,54 @@ package bce.java.core;
 import java.io.Serializable;
 
 /**
- * 定义将数据使用密码加密后存储的接口
+ * This interface defined the specifications of BCE encryption
+ * data structure, assuming it is a capsule, where data comes
+ * in, and gets protect. You can retrieve the original data
+ * with the valid key from the capsule.
  * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
  */
 public interface BCECapsule extends Serializable, BCEIOSpec {
 
     /**
-     * 设置加密数据
-     * @param data 要加密的数据
+     * Store the raw data for encryption
+     * @param data data to be encrypted
      */
     void protect(byte[] data);
 
     /**
-     * 把一个实现接口的类加密存储
-     * @param object 要存储的类
+     * Store a serializable object for encryption
+     * @param object serialzable object to be encrypted
      */
     void protect(Serializable object);
 
     /**
-     * @return 原始数据
+     * Retrieve the original raw data
      */
     byte[] getData();
 
     /**
-     * @return 原始类
+     * Retrieve the original serializable object
      */
     Object getDataAsObject() throws ClassNotFoundException;
 
     /**
-     * 设置加密密钥
-     * @param key 密钥
+     * Set the encryption key
      */
     void setKey(byte[] key);
 
     /**
-     * @return 哈希算法名称
+     * Return the algorithm name of the Hashing function
+     * used in the implementation
      */
     String getHashAlgorithm();
 
     /**
-     * @return 加密算法名称
+     * Return the algorithm name of the encryption name
      */
     String getCrypto();
 
     /**
-     * 销毁当前对象内的隐私数据
+     * Purge the secret data in the current object
      */
     void abort();
 }
