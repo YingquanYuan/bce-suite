@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import bce.jni.utils.BCEConstants;
 
 /**
- * 提供BCE系统需要的一些常量和通用I/O接口的声明
+ * The I/O serialization specifications of BCE system
  *
  * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
  *
@@ -15,17 +15,18 @@ import bce.jni.utils.BCEConstants;
 public interface BCEIOSpec extends BCEConstants {
 
     /**
-     * 将实例持久化到输出流
-     * @param out 输出流
-     * @throws IOException 发生IO异常
+     * Serialize the current instance to some output stream
+     * @param out Any output stream, such as a file, database or network
+     * @throws IOException
      */
     void writeExternal(OutputStream out) throws IOException;
 
     /**
-     * 从输入流中读取实例数据
-     * @param in 输入流
-     * @throws IOException 发生IO异常
-     * @throws ClassNotFoundException 读取的数据无法作为类的数据
+     * Deserialize the instance from some input stream
+     * @param in Any input stream
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * This exception is thrown when the data read cannot be deserailized to an instance
      */
     void readExternal(InputStream in) throws IOException, ClassNotFoundException;
 }

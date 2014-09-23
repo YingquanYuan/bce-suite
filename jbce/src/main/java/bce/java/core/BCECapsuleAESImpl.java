@@ -26,10 +26,14 @@ import bce.java.io.SecureByteArrayOutputStream;
 import bce.java.utils.Hash;
 
 /**
- * BCECapsule的AES实现<br>
- * 加密方式 AES256_CBC_PKCS5Padding<br>
- * 密钥哈希函数 SHA-512<br>
- * 这个实现不是线程安全的
+ * <pre>
+ * The AES implementation of BCECapsule
+ * Encryption Scheme: AES256_CBC_PKCS5Padding
+ * Secret key Hashing Function: SHA-512
+ *
+ * Warning: This implementation is not thread safe
+ *</pre>
+ *
  * @author <a href="mailto:yingq.yuan@gmail.com">Yingquan Yuan</a>
  */
 public class BCECapsuleAESImpl implements BCECapsule {
@@ -37,49 +41,46 @@ public class BCECapsuleAESImpl implements BCECapsule {
     private static final long serialVersionUID = 3514897463500469130L;
 
     /**
-     * 哈希函数算法
+     * Hashing function algorithm
      */
     private final static String HASH_ALGORITHM = "SHA-512";
 
     /**
-     * 加密算法/加密模式/加密填充方式
+     * Encryption Algorithm/Encryption Mode/Enryption Padding Method
      */
     private final static String CRYPTO_ALGORITHM = "AES/CBC/PKCS5Padding";
 
     /**
-     * 明文数据
+     * Plaintext
      */
     private transient byte[] data;
 
     /**
-     * AES密钥
+     * AES secret key
      */
     private transient byte[] key;
 
     /**
-     * 密文数据
+     * Ciphertext
      */
     private transient byte[] cipherText;
 
     /**
-     * 密钥的SHA-512摘要，长度为512/8=64
+     * The SHA-512 digest of the AES secret key, length: 512 / 8 = 64
      */
     private transient byte[] keyHash;
 
-    /**
-     * 构造函数
-     */
     public BCECapsuleAESImpl() {}
 
     /**
      * <pre>
-     * 持久化字段格式
-     * 加密算法名称（长度一字节 名称最多256字节）
-     * 哈希算法名称（长度一字节 名称最多256字节）
-     * 哈希值 长度由算法确定
-     * 数据有效长度 4字节
-     * 加密数据长度 4字节
-     * 加密数据
+     * Data writing order (format)
+     * Encryption Algorithm Name (length: 1 byte, max name length: 256 bytes)
+     * Hashing Algorithm Name (length: 1 byte, max name length: 256 bytes)
+     * Hash (length: determined by the Hashing algorithm)
+     * The length of the effective data (length: 4 bytes)
+     * The length of ciphertext (length: 4 bytes)
+     * The ciphertext data
      * </pre>
      * @see see {@link bce.java.utils.BCEIOSpec#writeExternal(OutputStream)}
      */
@@ -131,7 +132,7 @@ public class BCECapsuleAESImpl implements BCECapsule {
         int cLength = in.read();
         byte[] cBuffer = new byte[cLength];
         cLength = in.read(cBuffer);
-        if (cLength != cBuffer.length)  //有问题？
+        if (cLength != cBuffer.length)
             throw new IOException("Not enough bytes!");
 
         int hLength = in.read();
@@ -153,10 +154,6 @@ public class BCECapsuleAESImpl implements BCECapsule {
         if (tLength != tmp.length)
             throw new IOException("Not enough bytes!");
         int cipherLength = bytesToInt(tmp);
-
-        // 由于是AES/CBC块加密模式，为了补全块，密文长度可能略大于明文长度，所以不检查密文与明文长度是否相等
-//		if (dataLength != cipherLength)
-//			throw new IOException("dataLength not equals to cipherLength!");
 
         this.data = new byte[dataLength];
         this.cipherText = new byte[cipherLength];
