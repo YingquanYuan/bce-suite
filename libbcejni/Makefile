@@ -10,7 +10,6 @@ LDFLAGS        = $(EXTRA_LDFLAGS)
 CPPFLAGS       = $(EXTRA_CPPFLAGS)
 
 LIBNAME        = libbcejni
-LIBEXTENSION   = so
 
 # if on OS X
 ifeq ($(DARWIN), Darwin)
@@ -18,7 +17,7 @@ ifeq ($(DARWIN), Darwin)
 	LIBEXTENSION = jnilib
 	CPPFLAGS    += -I$(JAVA_INCDIR)
 	LDFLAGS     += -fPIC -dynamiclib -Wl,-undefined,dynamic_lookup
-	SHARED       =
+	SHARED       = -dynamiclib
 else
 	# if on Linux
 	JAVA_INCDIR  = $(JAVA_HOME)/include
@@ -26,6 +25,7 @@ else
 	CPPFLAGS    += -I$(JAVA_INCDIR) -I$(JAVA_INCDIR_PLAF)
 	CFLAGS      += -pthread -fPIC -DPIC
 	LDFLAGS     += -Wl,-rpath=/usr/local/lib
+	LIBEXTENSION   = so
 endif
 
 SRC_DIR     := ./src
@@ -40,10 +40,12 @@ LIBBCEJNI = $(TARGET_DIR)/$(LIBNAME).$(LIBEXTENSION)
 all: mkdir $(LIBBCEJNI)
 
 $(LIBBCEJNI): $(OBJS)
-	$(CC) $(SHARED) -o $@ $^ $(LDFLAGS)
+	@$(CC) $(SHARED) -o $@ $^ $(LDFLAGS)
+	@echo [LD] $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@echo [CC] $<
 
 .PHONY: mkdir
 mkdir:
